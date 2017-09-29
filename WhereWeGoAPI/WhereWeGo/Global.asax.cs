@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Web;
 using System.Web.Http;
 using System.Web.Routing;
+using Utility.Logging.NLog.Autofac;
 
 namespace WhereWeGoAPI
 {
@@ -21,6 +22,7 @@ namespace WhereWeGoAPI
 
             // Register your Web API controllers.
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
+            builder.RegisterModule(new NLogLoggerAutofacModule());
 
             GlobalConfiguration.Configure(WebApiConfig.Register);
 
