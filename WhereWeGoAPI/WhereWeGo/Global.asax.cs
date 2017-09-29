@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Routing;
 using Utility.Logging.NLog.Autofac;
+using WhereWeGo.App_Start;
 
 namespace WhereWeGoAPI
 {
@@ -15,25 +16,9 @@ namespace WhereWeGoAPI
     {
         protected void Application_Start()
         {
-            var builder = new ContainerBuilder();
-
-            // Get your HttpConfiguration.
-            var config = GlobalConfiguration.Configuration;
-
-            // Register your Web API controllers.
-            builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
-            builder.RegisterModule(new NLogLoggerAutofacModule());
-
             GlobalConfiguration.Configure(WebApiConfig.Register);
 
-            // OPTIONAL: Register the Autofac filter provider.
-            builder.RegisterWebApiFilterProvider(config);
-
-            // OPTIONAL: Register the Autofac model binder provider.
-            builder.RegisterWebApiModelBinderProvider();
-
-            var container = builder.Build();
-            config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
+            AutofacWebapiConfig.Initialize(GlobalConfiguration.Configuration);
         }
     }
 }
