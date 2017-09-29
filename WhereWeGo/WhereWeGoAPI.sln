@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhereWeGo", "WhereWeGo\WhereWeGo.csproj", "{7A282997-EAAC-4997-B77A-66E7F41619A2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhereWeGoAPI", "WhereWeGo\WhereWeGoAPI.csproj", "{7A282997-EAAC-4997-B77A-66E7F41619A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhereWeGo.UnitTests", "WhereWeGo.UnitTests\WhereWeGo.UnitTests.csproj", "{1786F8B9-5ECB-4FD2-877D-5536DF00B762}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhereWeGoAPI.UnitTests", "WhereWeGo.UnitTests\WhereWeGoAPI.UnitTests.csproj", "{1786F8B9-5ECB-4FD2-877D-5536DF00B762}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhereWeGo.IntegrationTests", "WhereWeGo.IntegrationTests\WhereWeGo.IntegrationTests.csproj", "{8EDF4429-251A-416D-BB68-93F227191BCF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhereWeGoAPI.IntegrationTests", "WhereWeGo.IntegrationTests\WhereWeGoAPI.IntegrationTests.csproj", "{8EDF4429-251A-416D-BB68-93F227191BCF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
