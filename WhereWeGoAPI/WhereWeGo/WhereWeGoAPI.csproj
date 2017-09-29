@@ -106,6 +106,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\AutofacConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -114,6 +115,9 @@
     <Compile Include="GrailTravel\SDK\ParamSecure.cs" />
     <Compile Include="GrailTravel\SDK\Requests\RequestBase.cs" />
     <Compile Include="GrailTravel\SDK\Requests\SearchRequest.cs" />
+    <Compile Include="IoC\AutofacRegister.cs" />
+    <Compile Include="Models\ITestService.cs" />
+    <Compile Include="Models\TestService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
