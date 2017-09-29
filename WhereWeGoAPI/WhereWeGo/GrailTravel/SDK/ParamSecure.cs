@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Web.Services.Description;
 using WhereWeGo.GrailTravel.SDK.Requests;
 
 namespace WhereWeGo.GrailTravel.SDK
@@ -29,7 +30,7 @@ namespace WhereWeGo.GrailTravel.SDK
             sources["t"] = new DateTimeOffset(CurrentTime).ToUnixTimeSeconds().ToString();
             var sortedSources = new SortedDictionary<string, string>(sources);
 
-            var input = string.Join("", sortedSources.Select(x => $"{x.Key}={x.Value}").ToList());
+            var input = string.Join("", sortedSources.OrderBy(x=>x.Key).Select(x => $"{x.Key}={x.Value}").ToList());
 
             using (var md5Hash = MD5.Create())
             {

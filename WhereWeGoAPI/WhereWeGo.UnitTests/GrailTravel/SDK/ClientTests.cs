@@ -1,17 +1,31 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
+using System.Threading;
+using System.Web.Script.Serialization;
 using FluentAssertions;
+using Newtonsoft.Json;
 using NUnit.Framework;
+using NUnit.Framework.Internal;
 using RestSharp;
 using WhereWeGo.GrailTravel.SDK;
 using WhereWeGo.GrailTravel.SDK.Requests;
+using WhereWeGo.GrailTravel.SDK.Response;
 
 namespace WhereWeGo.UnitTests.GrailTravel.SDK
 {
     internal class ClientTests
     {
+        private DetieClient _client;
+
+        [SetUp]
+        public void Setup() 
+        {
+             _client = new DetieClient();
+        }
+
         [Test(Description = "測試呼叫API, but Server 端一直回應 httpStatus 500的錯誤")]
-        public void GetSearch()
+        public void GetSearch_github上的測試SampleCode()
         {
             var searchReqeust = new SearchRequest
             {
@@ -27,16 +41,64 @@ namespace WhereWeGo.UnitTests.GrailTravel.SDK
             var signature = secure.Sign();
 
             var client = new RestClient(Config.GrailTravelHost);
-
-            var request = new RestRequest($"/api/v2/online_solutions?{searchReqeust.GetURL()}", Method.GET);
+            
+            var request = new RestRequest($"api/v2/online_solutions?{searchReqeust.GetURL()}", Method.GET);
             request.AddHeader("From", Config.ApiKey);
             request.AddHeader("Date", dateTime.ToString("r"));
             request.AddHeader("Authorization", signature);
+            request.AddHeader("Api-Locale", "zh-CN");
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
             var response = client.Get(request);
             response.StatusCode.Should().Be(HttpStatusCode.OK);
 
             Console.WriteLine(response.Content);
+        }
+
+        [Test]
+        public void Search_進行路線查詢_應能得到AsyncKey()
+        {
+            var searchReqeust = new SearchRequest
+            {
+                StartStationCode = "ST_EZVVG1X5",
+                DestinationStationCode = "ST_D8NNN9ZK",
+                StartTime = DateTime.Now.AddDays(20),
+                NumberOfAdult = 1,
+                NumberOfChildren = 0
+            };
+
+            var actual = _client.Search(searchReqeust);
+
+            _client.Response.StatusCode.Should().Be(HttpStatusCode.OK);
+            Console.Write(actual);
+        }
+
+        [Test]
+        public void GetSearchResult_先進行路線查詢_取得AsyncKey後_再查詢結果()
+        {
+            
+            var searchReqeust = new SearchRequest
+            {
+                StartStationCode = "ST_EZVVG1X5",
+                DestinationStationCode = "ST_D8NNN9ZK",
+                StartTime = DateTime.Now.AddDays(20),
+                NumberOfAdult = 1,
+                NumberOfChildren = 0
+            };
+
+            //Act
+            var asyncKey = _client.Search(searchReqeust);
+
+            var actual = _client.GetSearchResult(asyncKey);         
+
+            //Assert
+            _client.Response.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var response = JsonConvert.DeserializeObject<List<SearchResponse>>(actual);
+            response.Count.Should().BeGreaterThan(0);
+            response[0].solutions.Count.Should().BeGreaterThan(0);
+            
+            Console.Write(actual);
         }
     }
 }

@@ -111,12 +111,16 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="GrailTravel\SDK\DetieClient.cs" />
     <Compile Include="GrailTravel\SDK\Config.cs" />
     <Compile Include="GrailTravel\SDK\ParamSecure.cs" />
     <Compile Include="GrailTravel\SDK\Requests\RequestBase.cs" />
     <Compile Include="GrailTravel\SDK\Requests\SearchRequest.cs" />
+    <Compile Include="GrailTravel\SDK\Requests\SearchRequestAsync.cs" />
+    <Compile Include="GrailTravel\SDK\Utilities.cs" />
     <Compile Include="IoC\AutofacRegister.cs" />
     <Compile Include="Models\ITestService.cs" />
+    <Compile Include="GrailTravel\SDK\Response\SearchResponse.cs" />
     <Compile Include="Models\TestService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -133,7 +137,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Controllers\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
