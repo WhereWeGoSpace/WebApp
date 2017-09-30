@@ -5,9 +5,11 @@ using System.Web.Http.Results;
 using FluentAssertions;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
+using WhereWeGo.DTOs.GrailTravel.SDK.Response.Confirm;
 using WhereWeGoAPI.Controllers;
 using WhereWeGoAPI.DTOs;
 using WhereWeGoAPI.DTOs.GrailTravel.SDK.Requests;
+using WhereWeGoAPI.DTOs.GrailTravel.SDK.Response.Booking;
 using WhereWeGoAPI.IntegrationTests.Factories;
 
 namespace WhereWeGoAPI.IntegrationTests.Steps
@@ -36,8 +38,10 @@ namespace WhereWeGoAPI.IntegrationTests.Steps
         {
             Traveling tr = ScenarioContext.Current["favorit_traveling"] as Traveling;
 
-            Booking bookInfo = new Booking {
-                From_Code =tr.From_Code, To_Code=tr.To_Code,
+            Booking bookInfo = new Booking
+            {
+                From_Code = tr.From_Code,
+                To_Code = tr.To_Code,
                 Contactor = new Contact
                 {
                     address = "beijing",
@@ -46,9 +50,9 @@ namespace WhereWeGoAPI.IntegrationTests.Steps
                     phone = "10086",
                     postcode = "100100"
                 },
-                Passengers = new List<Passenger>
+                Passengers = new List<DTOs.GrailTravel.SDK.Requests.Passenger>
                 {
-                    new Passenger
+                    new DTOs.GrailTravel.SDK.Requests.Passenger
                     {
                         last_name = "zhang",
                         first_name = "san",
@@ -61,19 +65,25 @@ namespace WhereWeGoAPI.IntegrationTests.Steps
                 }
             };
 
-            var result = (await _ctrl.Booking(bookInfo)) as OkNegotiatedContentResult<bool>;
-            bool booking_result = result.Content;
+            var result = (await _ctrl.Booking(bookInfo)) as OkNegotiatedContentResult<BookingResponse>;
+            BookingResponse booking_result = result.Content;
 
-            ScenarioContext.Current.Add("booking_result", booking_result);
+            ScenarioContext.Current.Add("bookingId", booking_result.id);
         }
 
-        [When(@"user pays")]
-        public async Task WhenUserPays()
+        [When(@"user fill up the credit card info")]
+        public async Task WhenUserFillUpTheCreditCardInfo(Table table)
         {
-            BookingRequest bookingResult = ScenarioContext.Current["booking_result"] as BookingRequest;
+            string bookingId = ScenarioContext.Current["bookingId"] as string;
 
-            var result = (await _ctrl.Payment()) as OkNegotiatedContentResult<bool>;
-            bool payment_result = result.Content;
+            Payment payment = new Payment
+            {
+                BookingId = bookingId,
+                CreditCard = table.CreateSet<CreditCard>().ElementAt(0)
+            };
+
+            var result = (await _ctrl.Payment(payment)) as OkNegotiatedContentResult<ConfirmResponse>;
+            ConfirmResponse payment_result = result.Content;
 
             ScenarioContext.Current.Add("payment_result", payment_result);
         }
@@ -81,9 +91,9 @@ namespace WhereWeGoAPI.IntegrationTests.Steps
         [Then(@"booking is ok")]
         public void ThenBookingIsOk()
         {
-            bool execution_result = (bool)ScenarioContext.Current["payment_result"];
+            ConfirmResponse execution_result = ScenarioContext.Current["payment_result"] as ConfirmResponse;
 
-            execution_result.Should().BeTrue();
+            execution_result.Should().NotBeNull();
         }
 
 

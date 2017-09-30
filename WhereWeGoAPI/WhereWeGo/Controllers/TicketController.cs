@@ -4,6 +4,7 @@ using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Http.Description;
 using Utility.Logging;
+using WhereWeGo.DTOs.GrailTravel.SDK.Response.Confirm;
 using WhereWeGoAPI.DTOs;
 using WhereWeGoAPI.DTOs.GrailTravel.SDK.Requests;
 using WhereWeGoAPI.DTOs.GrailTravel.SDK.Response.Booking;
@@ -64,7 +65,7 @@ namespace WhereWeGoAPI.Controllers
         }
 
         [HttpPost]
-        [ResponseType(typeof(BookingRequest))]
+        [ResponseType(typeof(BookingResponse))]
         [Route("Booking")]
         public async Task<IHttpActionResult> Booking([FromBody]Booking bookInfo)
         {
@@ -84,27 +85,18 @@ namespace WhereWeGoAPI.Controllers
         }
 
         [HttpPost]
-        [ResponseType(typeof(bool))]
+        [ResponseType(typeof(ConfirmResponse))]
         [Route("Payment")]
-        public async Task<IHttpActionResult> Payment()
+        public async Task<IHttpActionResult> Payment(Payment payment)
         {
-
-
-            return Ok(true);
-        }
-
-        [HttpPost]
-        [Route("IssueTicket")]
-        [ResponseType(typeof(byte[]))]
-        public async Task<IHttpActionResult> IssueTicket(DateTime? pt = null, DateTime? dt = null)
-        {
-            byte[] result = null;
+            ConfirmResponse resp = null;
 
             try
             {
-                this._issueTicketSvc.Download(pt, dt);
-
-                result = this._issueTicketSvc.TicketFile;
+                resp = this._checkOutSvc.Pay(
+                        payment.BookingId,
+                        new ConfirmRequest { credit_card = payment.CreditCard }
+                    );
             }
             catch (Exception ex)
             {
@@ -112,7 +104,27 @@ namespace WhereWeGoAPI.Controllers
                 return InternalServerError(ex);
             }
 
-            return Ok(result);
+            return Ok(resp);
+        }
+
+        [HttpPost]
+        [Route("IssueTicket")]
+        [ResponseType(typeof(string))]
+        public async Task<IHttpActionResult> IssueTicket()
+        {
+            string downloadUrl = string.Empty;
+
+            try
+            {
+                downloadUrl = this._issueTicketSvc.Download();
+            }
+            catch (Exception ex)
+            {
+                this.Logger.Error(ex.Message);
+                return InternalServerError(ex);
+            }
+
+            return Ok(downloadUrl);
         }
 
     }

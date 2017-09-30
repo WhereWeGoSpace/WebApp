@@ -84,9 +84,20 @@ this.ScenarioSetup(scenarioInfo);
  testRunner.Given("There is a favorit traveling", ((string)(null)), table1, "Given ");
 #line 11
  testRunner.When("user books", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+            TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+                        "number",
+                        "exp_month",
+                        "exp_year",
+                        "cvv"});
+            table2.AddRow(new string[] {
+                        "221233223333",
+                        "12",
+                        "2017",
+                        "182"});
 #line 12
- testRunner.And("user pays", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 13
+ testRunner.And("user fill up the credit card info", ((string)(null)), table2, "And ");
+#line 15
  testRunner.Then("booking is ok", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

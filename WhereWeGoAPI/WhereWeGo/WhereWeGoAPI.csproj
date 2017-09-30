@@ -129,8 +129,8 @@
     <Compile Include="DTOs\Booking.cs" />
     <Compile Include="DTOs\GrailTravel.SDK\Requests\DownloadRequestForSecure.cs" />
     <Compile Include="DTOs\GrailTravel.SDK\Response\Confirm\ConfirmResponse.cs" />
+    <Compile Include="DTOs\Payment.cs" />
     <Compile Include="DTOs\Traveling.cs" />
-    <Compile Include="Exceptions\TimeoutException.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

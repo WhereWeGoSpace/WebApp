@@ -81,33 +81,6 @@ this.ScenarioSetup(scenarioInfo);
 #line hidden
             this.ScenarioCleanup();
         }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("ticket is expired")]
-        [NUnit.Framework.CategoryAttribute("IssueTicket")]
-        [NUnit.Framework.TestCaseAttribute("2017-09-10", "2017-09-30", null)]
-        public virtual void TicketIsExpired(string paidTime, string downloadTime, string[] exampleTags)
-        {
-            string[] @__tags = new string[] {
-                    "IssueTicket"};
-            if ((exampleTags != null))
-            {
-                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
-            }
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("ticket is expired", @__tags);
-#line 13
-this.ScenarioSetup(scenarioInfo);
-#line 14
- testRunner.Given("I have paid for favorit traveling", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 15
- testRunner.And(string.Format("paid time is \"{0}\"", paidTime), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 16
- testRunner.When(string.Format("I download on \"{0}\"", downloadTime), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 17
- testRunner.Then("display error message \"time out\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            this.ScenarioCleanup();
-        }
     }
 }
 #pragma warning restore

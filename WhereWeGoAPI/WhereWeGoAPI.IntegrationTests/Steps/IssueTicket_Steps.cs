@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using System.Web.Http.Results;
 using FluentAssertions;
-using NSubstitute;
 using TechTalk.SpecFlow;
 using WhereWeGoAPI.Controllers;
 using WhereWeGoAPI.IntegrationTests.Factories;
@@ -31,34 +30,18 @@ namespace WhereWeGoAPI.IntegrationTests.Steps
         [When(@"I download")]
         public async Task WhenIDownload()
         {
-            var result = (await _ctrl.IssueTicket(null, null)) as OkNegotiatedContentResult<byte[]>;
+            var result = (await _ctrl.IssueTicket()) as OkNegotiatedContentResult<string>;
 
-            byte[] ticket = result.Content;
+            string ticket = result.Content;
 
-            ScenarioContext.Current.Add("ticket", result);
-        }
-
-        [When(@"I download on ""(.*)""")]
-        public async Task WhenIDownloadOn(string dateTime)
-        {
-            DateTime paidTime = (DateTime)ScenarioContext.Current["paidTime"];
-
-            DateTime downloadTime = DateTime.Parse(dateTime);
-
-            var result = await _ctrl.IssueTicket(paidTime, downloadTime);
+            ScenarioContext.Current.Add("ticket", ticket);
         }
 
         [Then(@"I get a PDF of ticket")]
         public void ThenIGetAPDFOfTicket()
         {
-            var result = ScenarioContext.Current["ticket"];
+            var result = ScenarioContext.Current["ticket"] as string;
             result.Should().NotBeNull();
-        }
-
-        [Then(@"display error message ""(.*)""")]
-        public void ThenDisplayErrorMessage(string errorMessage)
-        {
-            _ctrl.Logger.Received().Error(errorMessage);
         }
 
 
