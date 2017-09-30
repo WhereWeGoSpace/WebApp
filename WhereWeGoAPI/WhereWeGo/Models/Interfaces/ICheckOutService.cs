@@ -1,10 +1,11 @@
 ﻿using WhereWeGo.DTOs;
+using WhereWeGo.DTOs.GrailTravel.SDK.Requests;
 
 namespace WhereWeGo.Models.Interfaces
 {
     public interface ICheckOutService
     {
         bool Pay(decimal amount);
-        bool BookTraveling(Traveling tr, UserInfo userInfo);
+        BookingRequest BookTraveling(Traveling tr, UserInfo userInfo);
     }
 }

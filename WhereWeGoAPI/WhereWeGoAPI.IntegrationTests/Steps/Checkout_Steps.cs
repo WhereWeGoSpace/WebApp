@@ -6,6 +6,7 @@ using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
 using WhereWeGo.Controllers;
 using WhereWeGo.DTOs;
+using WhereWeGo.DTOs.GrailTravel.SDK.Requests;
 using WhereWeGoAPI.IntegrationTests.Factories;
 
 namespace WhereWeGoAPI.IntegrationTests.Steps
@@ -37,9 +38,9 @@ namespace WhereWeGoAPI.IntegrationTests.Steps
             Traveling tr = ScenarioContext.Current["favorit_traveling"] as Traveling;
             TicketIssuing ticketIssueing = new TicketIssuing { Traveling = tr };
 
-            var result = (await _ctrl.Checkout(ticketIssueing)) as OkNegotiatedContentResult<bool>;
+            var result = (await _ctrl.Checkout(ticketIssueing)) as OkNegotiatedContentResult<BookingRequest>;
 
-            bool execution_result = result.Content;
+            BookingRequest execution_result = result.Content;
 
             ScenarioContext.Current.Add("execution_result", execution_result);
         }
@@ -47,9 +48,9 @@ namespace WhereWeGoAPI.IntegrationTests.Steps
         [Then(@"display ""(.*)""")]
         public void ThenDisplay(string message)
         {
-            bool result = (bool)ScenarioContext.Current["execution_result"];
+            BookingRequest result = ScenarioContext.Current["execution_result"] as BookingRequest;
 
-            result.Should().BeTrue();
+            result.Should().NotBeNull();
         }
 
 

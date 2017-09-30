@@ -5,6 +5,7 @@ using System.Web.Http.Cors;
 using System.Web.Http.Description;
 using Utility.Logging;
 using WhereWeGo.DTOs;
+using WhereWeGo.DTOs.GrailTravel.SDK.Requests;
 using WhereWeGo.Models.Interfaces;
 
 namespace WhereWeGo.Controllers
@@ -87,7 +88,7 @@ namespace WhereWeGo.Controllers
         [Route("Checkout")]
         public async Task<IHttpActionResult> Checkout([FromBody]TicketIssuing ticket)
         {
-            bool result = default(bool);
+            BookingRequest result = null;
 
             try
             {
