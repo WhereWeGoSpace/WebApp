@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using WhereWeGo.DTOs;
 using WhereWeGo.DTOs.GrailTravel.SDK.Requests;
 using WhereWeGo.DTOs.GrailTravel.SDK.Response.Search;
 using WhereWeGo.Models.GrailTravel.SDK;
@@ -13,13 +12,14 @@ namespace WhereWeGo.Models.Implements
     {
         private readonly DetieClient _client;
 
-        public CheckOutService() {
+        public CheckOutService()
+        {
             this._client = new DetieClient();
         }
 
-        public BookingRequest BookTraveling(Traveling tr, UserInfo userInfo)
+        public BookingRequest BookTraveling(string from_code, string to_code)
         {
-            var searchResult = GetSearchResult();
+            var searchResult = GetSearchResult(from_code, to_code);
             var searchRoute = JsonConvert.DeserializeObject<List<SearchResponse>>(searchResult);
 
             var bookingRequest = new BookingRequest
@@ -61,12 +61,12 @@ namespace WhereWeGo.Models.Implements
             return true;
         }
 
-        private String GetSearchResult()
+        private String GetSearchResult(string from_code, string to_code)
         {
             var searchReqeust = new SearchRequest
             {
-                StartStationCode = "ST_EZVVG1X5",
-                DestinationStationCode = "ST_D8NNN9ZK",
+                StartStationCode = from_code,
+                DestinationStationCode = to_code,
                 StartTime = DateTime.Now.AddDays(20),
                 NumberOfAdult = 1,
                 NumberOfChildren = 0

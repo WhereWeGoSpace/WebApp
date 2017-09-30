@@ -62,6 +62,26 @@ namespace WhereWeGo.Controllers
             return Ok(result);
         }
 
+        [HttpGet]
+        [ResponseType(typeof(BookingRequest))]
+        [Route("Checkout")]
+        public async Task<IHttpActionResult> Checkout([FromUri]string from_code, [FromUri]string to_code)
+        {
+            BookingRequest result = null;
+
+            try
+            {
+                result = this._checkOutSvc.BookTraveling(from_code, to_code);
+            }
+            catch (Exception ex)
+            {
+                this.Logger.Error(ex.Message);
+                return InternalServerError(ex);
+            }
+
+            return Ok(result);
+        }
+
         [HttpPost]
         [Route("IssueTicket")]
         [ResponseType(typeof(byte[]))]
@@ -74,25 +94,6 @@ namespace WhereWeGo.Controllers
                 this._issueTicketSvc.Download(pt, dt);
 
                 result = this._issueTicketSvc.TicketFile;
-            }
-            catch (Exception ex)
-            {
-                this.Logger.Error(ex.Message);
-                return InternalServerError(ex);
-            }
-
-            return Ok(result);
-        }
-
-        [HttpPost]
-        [Route("Checkout")]
-        public async Task<IHttpActionResult> Checkout([FromBody]TicketIssuing ticket)
-        {
-            BookingRequest result = null;
-
-            try
-            {
-                result = this._checkOutSvc.BookTraveling(ticket.Traveling, ticket.UserInfo);
             }
             catch (Exception ex)
             {

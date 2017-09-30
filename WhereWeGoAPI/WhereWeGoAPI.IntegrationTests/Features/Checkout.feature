@@ -6,9 +6,7 @@
 @Checkout
 Scenario: buy ticket successfully
 	Given There is a favorit traveling
-	| from | to | price |
-	| a    | b  | 200   |
-	When user books and pays $"200"
-	| firstname | lastname | amount |
-	| Arthur   | Chang     | 200    |
-	Then display "order ticket successfully"
+	| from_code | to_code | 
+	| ST_EZVVG1X5    | ST_D8NNN9ZK  |
+	When user books
+	Then booking is ok

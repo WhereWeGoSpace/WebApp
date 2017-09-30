@@ -75,28 +75,17 @@ namespace WhereWeGoAPI.IntegrationTests.Features
 this.ScenarioSetup(scenarioInfo);
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
-                        "from",
-                        "to",
-                        "price"});
+                        "from_code",
+                        "to_code"});
             table1.AddRow(new string[] {
-                        "a",
-                        "b",
-                        "200"});
+                        "ST_EZVVG1X5",
+                        "ST_D8NNN9ZK"});
 #line 8
  testRunner.Given("There is a favorit traveling", ((string)(null)), table1, "Given ");
-#line hidden
-            TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
-                        "firstname",
-                        "lastname",
-                        "amount"});
-            table2.AddRow(new string[] {
-                        "Arthur",
-                        "Chang",
-                        "200"});
 #line 11
- testRunner.When("user books and pays $\"200\"", ((string)(null)), table2, "When ");
-#line 14
- testRunner.Then("display \"order ticket successfully\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.When("user books", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 12
+ testRunner.Then("booking is ok", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

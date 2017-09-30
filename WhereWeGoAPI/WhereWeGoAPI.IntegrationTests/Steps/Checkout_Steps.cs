@@ -30,27 +30,22 @@ namespace WhereWeGoAPI.IntegrationTests.Steps
             ScenarioContext.Current.Add("favorit_traveling", tr);
         }
 
-        [When(@"user books and pays \$""(.*)""")]
-        public async Task WhenUserBooksAndPays(int amount, Table table)
+        [When(@"user books")]
+        public async Task WhenUserBooks()
         {
-            UserInfo userInfo = table.CreateSet<UserInfo>().First();
-
             Traveling tr = ScenarioContext.Current["favorit_traveling"] as Traveling;
-            TicketIssuing ticketIssueing = new TicketIssuing { Traveling = tr };
-
-            var result = (await _ctrl.Checkout(ticketIssueing)) as OkNegotiatedContentResult<BookingRequest>;
-
+            var result = (await _ctrl.Checkout(tr.From_Code, tr.To_Code)) as OkNegotiatedContentResult<BookingRequest>;
             BookingRequest execution_result = result.Content;
 
             ScenarioContext.Current.Add("execution_result", execution_result);
         }
 
-        [Then(@"display ""(.*)""")]
-        public void ThenDisplay(string message)
+        [Then(@"booking is ok")]
+        public void ThenBookingIsOk()
         {
-            BookingRequest result = ScenarioContext.Current["execution_result"] as BookingRequest;
+            BookingRequest execution_result = ScenarioContext.Current["execution_result"] as BookingRequest;
 
-            result.Should().NotBeNull();
+            execution_result.Should().NotBeNull();
         }
 
 
