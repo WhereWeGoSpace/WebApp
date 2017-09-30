@@ -9,4 +9,5 @@ Scenario: buy ticket successfully
 	| from_code | to_code | 
 	| ST_EZVVG1X5    | ST_D8NNN9ZK  |
 	When user books
+	And user pays
 	Then booking is ok

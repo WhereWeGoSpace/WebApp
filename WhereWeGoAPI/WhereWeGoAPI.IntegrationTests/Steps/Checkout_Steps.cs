@@ -34,18 +34,29 @@ namespace WhereWeGoAPI.IntegrationTests.Steps
         public async Task WhenUserBooks()
         {
             Traveling tr = ScenarioContext.Current["favorit_traveling"] as Traveling;
-            var result = (await _ctrl.Checkout(tr.From_Code, tr.To_Code)) as OkNegotiatedContentResult<BookingRequest>;
-            BookingRequest execution_result = result.Content;
+            var result = (await _ctrl.Booking(tr.From_Code, tr.To_Code)) as OkNegotiatedContentResult<bool>;
+            bool booking_result = result.Content;
 
-            ScenarioContext.Current.Add("execution_result", execution_result);
+            ScenarioContext.Current.Add("booking_result", booking_result);
+        }
+
+        [When(@"user pays")]
+        public async Task WhenUserPays()
+        {
+            BookingRequest bookingResult = ScenarioContext.Current["booking_result"] as BookingRequest;
+
+            var result = (await _ctrl.Payment()) as OkNegotiatedContentResult<bool>;
+            bool payment_result = result.Content;
+
+            ScenarioContext.Current.Add("payment_result", payment_result);
         }
 
         [Then(@"booking is ok")]
         public void ThenBookingIsOk()
         {
-            BookingRequest execution_result = ScenarioContext.Current["execution_result"] as BookingRequest;
+            bool execution_result = (bool)ScenarioContext.Current["payment_result"];
 
-            execution_result.Should().NotBeNull();
+            execution_result.Should().BeTrue();
         }
 
 

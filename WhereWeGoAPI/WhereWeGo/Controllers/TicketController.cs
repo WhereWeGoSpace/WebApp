@@ -64,14 +64,15 @@ namespace WhereWeGo.Controllers
 
         [HttpGet]
         [ResponseType(typeof(BookingRequest))]
-        [Route("Checkout")]
-        public async Task<IHttpActionResult> Checkout([FromUri]string from_code, [FromUri]string to_code)
+        [Route("Booking")]
+        public async Task<IHttpActionResult> Booking([FromUri]string from_code, [FromUri]string to_code)
         {
-            BookingRequest result = null;
+            bool result = default(bool);
 
             try
             {
-                result = this._checkOutSvc.BookTraveling(from_code, to_code);
+                BookingRequest bookingResult = this._checkOutSvc.BookTraveling(from_code, to_code);
+                result = this._checkOutSvc.Pay(100);
             }
             catch (Exception ex)
             {
@@ -80,6 +81,16 @@ namespace WhereWeGo.Controllers
             }
 
             return Ok(result);
+        }
+
+        [HttpGet]
+        [ResponseType(typeof(bool))]
+        [Route("Payment")]
+        public async Task<IHttpActionResult> Payment()
+        {
+
+
+            return Ok(true);
         }
 
         [HttpPost]

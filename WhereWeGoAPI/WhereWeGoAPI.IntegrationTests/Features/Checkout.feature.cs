@@ -85,6 +85,8 @@ this.ScenarioSetup(scenarioInfo);
 #line 11
  testRunner.When("user books", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 12
+ testRunner.And("user pays", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 13
  testRunner.Then("booking is ok", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
