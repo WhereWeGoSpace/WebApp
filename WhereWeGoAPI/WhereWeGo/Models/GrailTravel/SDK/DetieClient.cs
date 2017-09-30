@@ -10,7 +10,7 @@ using WhereWeGoAPI.DTOs.GrailTravel.SDK.Response.Search;
 
 namespace WhereWeGoAPI.Models.GrailTravel.SDK
 {
-    public class DetieClient
+    public class DetieClient : IDetieClient
     {
         private readonly IRestClient _client;
         private readonly int sleepSecond = 5;

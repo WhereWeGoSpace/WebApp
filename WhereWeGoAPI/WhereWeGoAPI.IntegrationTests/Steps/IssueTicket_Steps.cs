@@ -27,10 +27,10 @@ namespace WhereWeGoAPI.IntegrationTests.Steps
             ScenarioContext.Current.Add("paidTime", paidTime);
         }
 
-        [When(@"I download")]
-        public async Task WhenIDownload()
+        [When(@"I download by orderId:""(.*)""")]
+        public async Task WhenIDownloadByOrderId(string orderId)
         {
-            var result = (await _ctrl.IssueTicket()) as OkNegotiatedContentResult<string>;
+            var result = (await _ctrl.IssueTicket(orderId)) as OkNegotiatedContentResult<string>;
 
             string ticket = result.Content;
 
@@ -43,8 +43,6 @@ namespace WhereWeGoAPI.IntegrationTests.Steps
             var result = ScenarioContext.Current["ticket"] as string;
             result.Should().NotBeNull();
         }
-
-
 
     }
 }

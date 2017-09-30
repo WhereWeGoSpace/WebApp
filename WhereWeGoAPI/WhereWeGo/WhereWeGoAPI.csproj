@@ -157,6 +157,7 @@
     </Compile>
     <Compile Include="Models\GrailTravel\SDK\DetieClient.cs" />
     <Compile Include="Models\GrailTravel\SDK\Config.cs" />
+    <Compile Include="Models\GrailTravel\SDK\IDetieClient.cs" />
     <Compile Include="Models\GrailTravel\SDK\ParamSecure.cs" />
     <Compile Include="DTOs\GrailTravel.SDK\Requests\BookingRequest.cs" />
     <Compile Include="DTOs\GrailTravel.SDK\Requests\ConfirmRequest.cs" />

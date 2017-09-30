@@ -6,7 +6,7 @@
 @IssueTicket
 Scenario: get ticket successfully
 	Given I have paid for favorit traveling
-	When I download
+	When I download by orderId:"1234"
 	Then I get a PDF of ticket
 
 

@@ -2,12 +2,16 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using FluentAssertions;
+using Newtonsoft.Json;
+using NSubstitute;
 using NUnit.Framework;
 using WhereWeGoAPI.DTOs;
 using WhereWeGoAPI.DTOs.GrailTravel.SDK.Requests;
 using WhereWeGoAPI.DTOs.GrailTravel.SDK.Response;
 using WhereWeGoAPI.DTOs.GrailTravel.SDK.Response.Booking;
 using WhereWeGoAPI.DTOs.GrailTravel.SDK.Response.Confirm;
+using WhereWeGoAPI.DTOs.GrailTravel.SDK.Response.Search;
+using WhereWeGoAPI.Models.GrailTravel.SDK;
 using WhereWeGoAPI.Models.Implements;
 using WhereWeGoAPI.Models.Interfaces;
 
@@ -16,10 +20,13 @@ namespace WhereWeGoAPI.UnitTests.Model
     [TestFixture]
     public class CheckOutServiceTests
     {
+        private IDetieClient _client;
+
         [SetUp]
         public void SetUp()
         {
-            _svc = new CheckOutService();
+            this._client = NSubstitute.Substitute.For<IDetieClient>();
+            _svc = new CheckOutService(this._client);
         }
 
         private ICheckOutService _svc;
@@ -56,12 +63,19 @@ namespace WhereWeGoAPI.UnitTests.Model
                     }
                 }
             };
+            List<SearchResponse> sd = new List<SearchResponse>();
+            sd.Add(new SearchResponse { solutions = new List<Solution> { new Solution { sections = new List<Section>() { new Section { offers = new List<Offer> { new Offer { services = new List<Service> { new Service { booking_code = "123" } } } } } } } } });
+            string str = JsonConvert.SerializeObject(sd);
+
+
+            this._client.Search_Async(Arg.Any<AsyncKey>()).Returns(str);
+            this._client.Booking_Async(Arg.Any<AsyncKey>()).Returns(expect);
 
             //Act
-            _svc.BookTraveling(bookingInfo);
+            actual = _svc.BookTraveling(bookingInfo);
 
             //Asert
-            actual.Should().Be(actual);
+            expect.Should().Be(actual);
         }
 
         [Test]
@@ -83,8 +97,10 @@ namespace WhereWeGoAPI.UnitTests.Model
                 }
             };
 
+            this._client.Confirm_Async(Arg.Any<AsyncKey>()).Returns(expect);
+
             //Act
-            _svc.Pay(bookingId, payRequest);
+            actual = _svc.Pay(bookingId, payRequest);
 
             //Assert
             expect.Should().Be(actual);

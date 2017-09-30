@@ -1,16 +1,29 @@
-﻿using WhereWeGoAPI.Models.Interfaces;
+﻿using WhereWeGoAPI.Models.GrailTravel.SDK;
+using WhereWeGoAPI.Models.Interfaces;
 
 namespace WhereWeGoAPI.Models.Implements
 {
     public class IssueTicketService : IIssueTicketService
     {
-        private byte[] _fileStream;
+        private readonly IDetieClient _client;
 
-        byte[] IIssueTicketService.TicketFile => _fileStream;
-
-        public string Download()
+        public IssueTicketService()
         {
-            return string.Empty;
+            this._client = new DetieClient();
+        }
+
+        public IssueTicketService(IDetieClient client)
+        {
+            this._client = client;
+        }
+
+        public string Download(string orderId)
+        {
+            string downloadUrl = string.Empty;
+
+            downloadUrl = this._client.Download(orderId);
+
+            return downloadUrl;
         }
     }
 }

@@ -13,11 +13,16 @@ namespace WhereWeGoAPI.Models.Implements
 {
     public class CheckOutService : ICheckOutService
     {
-        private readonly DetieClient _client;
+        private readonly IDetieClient _client;
 
         public CheckOutService()
         {
             _client = new DetieClient();
+        }
+
+        public CheckOutService(IDetieClient client)
+        {
+            this._client = client;
         }
 
         public BookingResponse BookTraveling(Booking bookingInfo)

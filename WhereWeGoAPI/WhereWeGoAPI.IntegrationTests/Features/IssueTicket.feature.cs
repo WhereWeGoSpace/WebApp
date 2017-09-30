@@ -75,7 +75,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 8
  testRunner.Given("I have paid for favorit traveling", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 9
- testRunner.When("I download", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I download by orderId:\"1234\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 10
  testRunner.Then("I get a PDF of ticket", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden

@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using WhereWeGoAPI.Models.GrailTravel.SDK;
 using WhereWeGoAPI.Models.Implements;
 using WhereWeGoAPI.Models.Interfaces;
 
@@ -18,6 +19,10 @@ namespace WhereWeGoAPI.IoC
 
             builder.RegisterType<CheckOutService>()
                 .As<ICheckOutService>()
+                .InstancePerRequest();
+
+            builder.RegisterType<DetieClient>()
+                .As<IDetieClient>()
                 .InstancePerRequest();
         }
     }

@@ -5,11 +5,12 @@ using System.Web.Http.Results;
 using FluentAssertions;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
-using WhereWeGo.DTOs.GrailTravel.SDK.Response.Confirm;
 using WhereWeGoAPI.Controllers;
 using WhereWeGoAPI.DTOs;
 using WhereWeGoAPI.DTOs.GrailTravel.SDK.Requests;
+using WhereWeGoAPI.DTOs.GrailTravel.SDK.Response;
 using WhereWeGoAPI.DTOs.GrailTravel.SDK.Response.Booking;
+using WhereWeGoAPI.DTOs.GrailTravel.SDK.Response.Confirm;
 using WhereWeGoAPI.IntegrationTests.Factories;
 
 namespace WhereWeGoAPI.IntegrationTests.Steps
@@ -50,9 +51,9 @@ namespace WhereWeGoAPI.IntegrationTests.Steps
                     phone = "10086",
                     postcode = "100100"
                 },
-                Passengers = new List<DTOs.GrailTravel.SDK.Requests.Passenger>
+                Passengers = new List<Passenger>
                 {
-                    new DTOs.GrailTravel.SDK.Requests.Passenger
+                    new Passenger
                     {
                         last_name = "zhang",
                         first_name = "san",

@@ -2,8 +2,6 @@
 {
     public interface IIssueTicketService
     {
-        byte[] TicketFile { get; }
-
-        string Download();
+        string Download(string orderId);
     }
 }

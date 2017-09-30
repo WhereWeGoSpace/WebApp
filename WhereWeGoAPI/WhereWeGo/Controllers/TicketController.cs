@@ -4,10 +4,10 @@ using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Http.Description;
 using Utility.Logging;
-using WhereWeGo.DTOs.GrailTravel.SDK.Response.Confirm;
 using WhereWeGoAPI.DTOs;
 using WhereWeGoAPI.DTOs.GrailTravel.SDK.Requests;
 using WhereWeGoAPI.DTOs.GrailTravel.SDK.Response.Booking;
+using WhereWeGoAPI.DTOs.GrailTravel.SDK.Response.Confirm;
 using WhereWeGoAPI.Models.Interfaces;
 
 namespace WhereWeGoAPI.Controllers
@@ -107,16 +107,16 @@ namespace WhereWeGoAPI.Controllers
             return Ok(resp);
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("IssueTicket")]
         [ResponseType(typeof(string))]
-        public async Task<IHttpActionResult> IssueTicket()
+        public async Task<IHttpActionResult> IssueTicket([FromUri]string orderId)
         {
             string downloadUrl = string.Empty;
 
             try
             {
-                downloadUrl = this._issueTicketSvc.Download();
+                downloadUrl = this._issueTicketSvc.Download(orderId);
             }
             catch (Exception ex)
             {
