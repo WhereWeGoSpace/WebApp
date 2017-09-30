@@ -15,96 +15,77 @@ namespace WhereWeGo.Models.Implements
         {
             int milSecond = DateTime.Now.Millisecond;
             this._favorit = new List<Traveling> {
-                //德国
+                //法国出发
                 new Traveling{
-                    From ="Berlin Hbf", From_Code="ST_E0203JK4",
-                    To ="München Hbf", To_Code = "ST_EMYR64OX",
+                    From="PARIS GARE DE LYON", From_Code="ST_EZVOJP9W",
+                    To="Milano Centrale",To_Code="ST_EZVVG1X5",
                     Date = DateTime.Now.Add(TimeSpan.FromDays(random.Next()%7)),
-                    Price =210   },
+                    Price=388
+                },
                 new Traveling {
-                    From ="Frankfurt(Main)Hbf", From_Code ="ST_LYKXO1K1",
-                    To ="München Hbf", To_Code = "ST_EMYR64OX",
+                    From="Paris Est", From_Code="ST_DQM28J3P",
+                    To="Frankfurt(Main)Hbf",To_Code="ST_LYKXO1K1",
                     Date = DateTime.Now.Add(TimeSpan.FromDays(random.Next()%7)),
-                    Price = 380 },
+                    Price=388
+                },
                 new Traveling {
-                    From ="Frankfurt(M) Flughafen", From_Code = "ST_D8N9YK5N",
-                    To ="München Hbf", To_Code="ST_EMYR64OX",
+                    From="Marseille-St-Charles", From_Code="ST_DKR6X1Y6",
+                    To="Milano Centrale",To_Code="ST_EZVVG1X5",
                     Date = DateTime.Now.Add(TimeSpan.FromDays(random.Next()%7)),
-                    Price = 320 },
+                    Price=388
+                },
                 new Traveling {
-                    From ="Frankfurt(Main)Hbf", From_Code = "ST_LYKXO1K1",
-                    To ="Stuttgart Hbf", To_Code = "ST_EZVGOKVW",
+                    From="Nice Ville", From_Code="ST_LYKO4G43",
+                    To="Milano Centralee",To_Code="ST_EZVVG1X5",
                     Date = DateTime.Now.Add(TimeSpan.FromDays(random.Next()%7)),
-                    Price = 310 },
-                new Traveling {
-                    From ="Frankfurt(Main)Hbf", From_Code = "ST_LYKXO1K1",
-                    To ="Köln Hbf", To_Code = "ST_EJ06PO45",
-                    Date = DateTime.Now.Add(TimeSpan.FromDays(random.Next()%7)),
-                    Price = 370 },
-                new Traveling {
-                    From ="Frankfurt(Main)Hbf", From_Code = "ST_LYKXO1K1",
-                    To ="Düsseldorf Hbf", To_Code = "ST_EJ06PO45",
-                    Date = DateTime.Now.Add(TimeSpan.FromDays(random.Next()%7)),
-                    Price = 310 },
-                new Traveling {
-                    From ="Frankfurt(Main)Hbf", From_Code = "ST_LYKXO1K1",
-                    To ="Berlin Hbf", To_Code = "ST_E0203JK4",
-                    Date = DateTime.Now.Add(TimeSpan.FromDays(random.Next()%7)),
-                    Price = 320 },
-                new Traveling {
-                    From ="Berlin Hbf", From_Code = "ST_E0203JK4",
-                    To ="Hamburg Hbf", To_Code = "ST_EMYR64R3",
-                    Date = DateTime.Now.Add(TimeSpan.FromDays(random.Next()%7)),
-                    Price = 390 },
+                    Price=388
+                },
 
-                //意大利
+                //荷兰、比利时、卢森堡出发
                 new Traveling {
-                    From ="Roma Termini", From_Code = "ST_D8NNN9ZK",
-                    To ="Venezia S. Lucia", To_Code = "ST_ENZZ7QVN",
+                    From="Amsterdam Centraal", From_Code="ST_DQM28J3P",
+                    To="Hamburg Hbf",To_Code="ST_EMYR64R3",
                     Date = DateTime.Now.Add(TimeSpan.FromDays(random.Next()%7)),
-                    Price = 100 },
+                    Price=388
+                },
                 new Traveling {
-                    From ="Roma Termini", From_Code = "ST_D8NNN9ZK",
-                    To ="Milano Centrale", To_Code = "ST_EZVVG1X5",
+                    From="Amsterdam Centraal", From_Code="ST_DQM28J3P",
+                    To="Frankfurt(Main)Hbf",To_Code="ST_LYKXO1K1",
                     Date = DateTime.Now.Add(TimeSpan.FromDays(random.Next()%7)),
-                    Price = 340 },
+                    Price=388
+                },
+                new Traveling {
+                    From="Bruxelles-Mid", From_Code="ST_EG62437J",
+                    To="Frankfurt(Main)Hbf",To_Code="ST_LYKXO1K1",
+                    Date = DateTime.Now.Add(TimeSpan.FromDays(random.Next()%7)),
+                    Price=388
+                },
 
-                //跨国线路-德国出发
+                //瑞士出发
                 new Traveling {
-                    From ="Frankfurt(Main)Hbf", From_Code = "ST_LYKXO1K1",
-                    To ="Paris Est", To_Code = "ST_DQM28J3P",
+                    From="Zürich HB", From_Code="ST_EZVVZO2X",
+                    To="Milano Centrale",To_Code="ST_EZVVG1X5",
                     Date = DateTime.Now.Add(TimeSpan.FromDays(random.Next()%7)),
-                    Price = 310 },
+                    Price=388
+                },
                 new Traveling {
-                    From ="Hamburg Hbf", From_Code = "ST_EMYR64R3",
-                    To ="Amsterdam Centraal", To_Code = "ST_DQM28J3P",
+                    From="Geneve", From_Code="ST_E7GGK700",
+                    To="Milano Centrale",To_Code="ST_EZVVG1X5",
                     Date = DateTime.Now.Add(TimeSpan.FromDays(random.Next()%7)),
-                    Price = 800 },
+                    Price=388
+                },
                 new Traveling {
-                    From ="Frankfurt(Main)Hbf", From_Code = "ST_LYKXO1K1",
-                    To ="Amsterdam Centraal", To_Code = "ST_DQM28J3P",
+                    From="Basel SBB", From_Code="ST_E5KKZ82Y",
+                    To="Milano Centrale",To_Code="ST_EZVVG1X5",
                     Date = DateTime.Now.Add(TimeSpan.FromDays(random.Next()%7)),
-                    Price = 300 },
+                    Price=388
+                },
                 new Traveling {
-                    From ="Frankfurt(Main)Hbf", From_Code = "ST_LYKXO1K1",
-                    To ="Bruxelles-Midi", To_Code = "ST_EG62437J",
+                    From="Luzern", From_Code="ST_EZVVZMZG",
+                    To="Milano Centrale",To_Code="ST_EZVVG1X5",
                     Date = DateTime.Now.Add(TimeSpan.FromDays(random.Next()%7)),
-                    Price = 320 },
-                new Traveling {
-                    From ="München Hbf", From_Code = "ST_EMYR64OX",
-                    To ="Wien Hbf", To_Code = "ST_EZVGJ2KG",
-                    Date = DateTime.Now.Add(TimeSpan.FromDays(random.Next()%7)),
-                    Price = 100 },
-                new Traveling {
-                    From ="München Hbf", From_Code = "ST_EMYR64OX",
-                    To ="Praha hl.n.(Prag HBF)", To_Code = "ST_L2JGR0QL",
-                    Date = DateTime.Now.Add(TimeSpan.FromDays(random.Next()%7)),
-                    Price = 350 },
-                new Traveling {
-                    From ="München Hbf", From_Code = "ST_EMYR64OX",
-                    To ="Venezia S. Lucia", To_Code = "ST_ENZZ7QVN",
-                    Date = DateTime.Now.Add(TimeSpan.FromDays(random.Next()%7)),
-                    Price = 700 },
+                    Price=388
+                },
             };
         }
 
