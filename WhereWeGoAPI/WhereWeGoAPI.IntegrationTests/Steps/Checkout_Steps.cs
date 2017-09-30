@@ -51,6 +51,7 @@ namespace WhereWeGoAPI.IntegrationTests.Steps
                     phone = "10086",
                     postcode = "100100"
                 },
+                Booking_Code="",
                 Passengers = new List<Passenger>
                 {
                     new Passenger

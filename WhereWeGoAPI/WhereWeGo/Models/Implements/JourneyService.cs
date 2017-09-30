@@ -79,9 +79,10 @@ namespace WhereWeGoAPI.Models.Implements
             result = this._favorit.ElementAt(num);
 
             var searchResult = GetSearchResult(result.From_Code, result.To_Code);
+            List<SearchResponse> searchRoute = null;
             try
             {
-                var searchRoute = JsonConvert.DeserializeObject<List<SearchResponse>>(searchResult);
+                searchRoute = JsonConvert.DeserializeObject<List<SearchResponse>>(searchResult);
                 var filtered = searchRoute.Where(o => o.railway.code.Equals("FB"));
                 if (filtered.Count() == 0)
                     throw new Exception();
@@ -90,6 +91,8 @@ namespace WhereWeGoAPI.Models.Implements
             {
                 throw new Exception("車次不存在", ex);
             }
+
+            result.Booking_Code = searchRoute[0].solutions[0].sections[0].offers[0].services[0].booking_code;
 
             return result;
         }
