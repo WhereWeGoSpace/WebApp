@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace WhereWeGo.GrailTravel.SDK.Requests
+namespace WhereWeGo.DTOs.GrailTravel.SDK.Requests
 {
     public class BookingRequest : RequestBase
     {

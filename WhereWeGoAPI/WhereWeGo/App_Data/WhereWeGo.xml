@@ -4,7 +4,7 @@
         <name>WhereWeGo</name>
     </assembly>
     <members>
-        <member name="P:WhereWeGo.GrailTravel.SDK.Requests.BookingRequest.contact">
+        <member name="P:WhereWeGo.DTOs.GrailTravel.SDK.Requests.BookingRequest.contact">
             <summary>
             订票联系人，详见Contact联系人信息表格
             </summary>
@@ -12,7 +12,7 @@
             The contact.
             </value>
         </member>
-        <member name="P:WhereWeGo.GrailTravel.SDK.Requests.BookingRequest.passengers">
+        <member name="P:WhereWeGo.DTOs.GrailTravel.SDK.Requests.BookingRequest.passengers">
             <summary>
             旅客信息
             </summary>
@@ -20,7 +20,7 @@
             The passengers.
             </value>
         </member>
-        <member name="P:WhereWeGo.GrailTravel.SDK.Requests.BookingRequest.sections">
+        <member name="P:WhereWeGo.DTOs.GrailTravel.SDK.Requests.BookingRequest.sections">
             <summary>
             Segments，行程中的不同车型
             </summary>
@@ -28,7 +28,7 @@
             The sections.
             </value>
         </member>
-        <member name="P:WhereWeGo.GrailTravel.SDK.Requests.BookingRequest.seat_reserved">
+        <member name="P:WhereWeGo.DTOs.GrailTravel.SDK.Requests.BookingRequest.seat_reserved">
             <summary>
             是否订座，true or false
             </summary>
@@ -36,7 +36,7 @@
               <c>true</c> if [seat reserved]; otherwise, <c>false</c>.
             </value>
         </member>
-        <member name="P:WhereWeGo.GrailTravel.SDK.Requests.Contact.name">
+        <member name="P:WhereWeGo.DTOs.GrailTravel.SDK.Requests.Contact.name">
             <summary>
             名字
             </summary>
@@ -44,7 +44,7 @@
             The name.
             </value>
         </member>
-        <member name="P:WhereWeGo.GrailTravel.SDK.Requests.Contact.email">
+        <member name="P:WhereWeGo.DTOs.GrailTravel.SDK.Requests.Contact.email">
             <summary>
             邮件
             </summary>
@@ -52,7 +52,7 @@
             The email.
             </value>
         </member>
-        <member name="P:WhereWeGo.GrailTravel.SDK.Requests.Contact.phone">
+        <member name="P:WhereWeGo.DTOs.GrailTravel.SDK.Requests.Contact.phone">
             <summary>
             电话号码
             </summary>
@@ -60,7 +60,7 @@
             The phone.
             </value>
         </member>
-        <member name="P:WhereWeGo.GrailTravel.SDK.Requests.Contact.address">
+        <member name="P:WhereWeGo.DTOs.GrailTravel.SDK.Requests.Contact.address">
             <summary>
             邮寄地址
             </summary>
@@ -68,7 +68,7 @@
             The address.
             </value>
         </member>
-        <member name="P:WhereWeGo.GrailTravel.SDK.Requests.Contact.postcode">
+        <member name="P:WhereWeGo.DTOs.GrailTravel.SDK.Requests.Contact.postcode">
             <summary>
             the postcode.
             </summary>
@@ -76,7 +76,7 @@
             The postcode.
             </value>
         </member>
-        <member name="P:WhereWeGo.GrailTravel.SDK.Requests.Passenger.last_name">
+        <member name="P:WhereWeGo.DTOs.GrailTravel.SDK.Requests.Passenger.last_name">
             <summary>
             姓，拼音
             </summary>
@@ -84,7 +84,7 @@
             The last name.
             </value>
         </member>
-        <member name="P:WhereWeGo.GrailTravel.SDK.Requests.Passenger.first_name">
+        <member name="P:WhereWeGo.DTOs.GrailTravel.SDK.Requests.Passenger.first_name">
             <summary>
             名，拼音
             </summary>
@@ -92,7 +92,7 @@
             The first name.
             </value>
         </member>
-        <member name="P:WhereWeGo.GrailTravel.SDK.Requests.Passenger.birthdate">
+        <member name="P:WhereWeGo.DTOs.GrailTravel.SDK.Requests.Passenger.birthdate">
             <summary>
             生日，格式为yyyy-MM-dd
             </summary>
@@ -100,7 +100,7 @@
             The birthdate.
             </value>
         </member>
-        <member name="P:WhereWeGo.GrailTravel.SDK.Requests.Passenger.passport">
+        <member name="P:WhereWeGo.DTOs.GrailTravel.SDK.Requests.Passenger.passport">
             <summary>
             护照号
             </summary>
@@ -108,7 +108,7 @@
             The passport.
             </value>
         </member>
-        <member name="P:WhereWeGo.GrailTravel.SDK.Requests.Passenger.email">
+        <member name="P:WhereWeGo.DTOs.GrailTravel.SDK.Requests.Passenger.email">
             <summary>
             邮件
             </summary>
@@ -116,7 +116,7 @@
             The email.
             </value>
         </member>
-        <member name="P:WhereWeGo.GrailTravel.SDK.Requests.Passenger.phone">
+        <member name="P:WhereWeGo.DTOs.GrailTravel.SDK.Requests.Passenger.phone">
             <summary>
             电话号码
             </summary>
@@ -124,7 +124,7 @@
             The phone.
             </value>
         </member>
-        <member name="P:WhereWeGo.GrailTravel.SDK.Requests.Passenger.gender">
+        <member name="P:WhereWeGo.DTOs.GrailTravel.SDK.Requests.Passenger.gender">
             <summary>
             male or female
             </summary>
@@ -132,13 +132,15 @@
             The gender.
             </value>
         </member>
-        <member name="T:WhereWeGo.GrailTravel.SDK.Requests.SearchRequest">
+        <member name="T:WhereWeGo.DTOs.GrailTravel.SDK.Requests.SearchRequest">
             <summary>
             搜尋車票所需要輸入的參數
             </summary>
-            <seealso cref="T:WhereWeGo.GrailTravel.SDK.Requests.RequestBase" />
+            <seealso>
+                <cref>WhereWeGo.GrailTravel.SDK.Requests.RequestBase</cref>
+            </seealso>
         </member>
-        <member name="P:WhereWeGo.GrailTravel.SDK.Requests.SearchRequest.StartStationCode">
+        <member name="P:WhereWeGo.DTOs.GrailTravel.SDK.Requests.SearchRequest.StartStationCode">
             <summary>
             起始站编码
             </summary>
@@ -146,7 +148,7 @@
             The start station code.
             </value>
         </member>
-        <member name="P:WhereWeGo.GrailTravel.SDK.Requests.SearchRequest.DestinationStationCode">
+        <member name="P:WhereWeGo.DTOs.GrailTravel.SDK.Requests.SearchRequest.DestinationStationCode">
             <summary>
             终点站编码
             </summary>
@@ -154,7 +156,7 @@
             The destination station code.
             </value>
         </member>
-        <member name="P:WhereWeGo.GrailTravel.SDK.Requests.SearchRequest.StartDateString">
+        <member name="P:WhereWeGo.DTOs.GrailTravel.SDK.Requests.SearchRequest.StartDateString">
             <summary>
             出发日期，格式为yyyy-MM-dd
             </summary>
@@ -162,7 +164,7 @@
             The start time string.
             </value>
         </member>
-        <member name="P:WhereWeGo.GrailTravel.SDK.Requests.SearchRequest.NumberOfAdult">
+        <member name="P:WhereWeGo.DTOs.GrailTravel.SDK.Requests.SearchRequest.NumberOfAdult">
             <summary>
             成年人人数
             </summary>
@@ -170,7 +172,7 @@
             The number of adult.
             </value>
         </member>
-        <member name="P:WhereWeGo.GrailTravel.SDK.Requests.SearchRequest.NumberOfChildren">
+        <member name="P:WhereWeGo.DTOs.GrailTravel.SDK.Requests.SearchRequest.NumberOfChildren">
             <summary>
             儿童人数
             </summary>
@@ -178,12 +180,12 @@
             The number of children.
             </value>
         </member>
-        <member name="T:WhereWeGo.GrailTravel.SDK.Response.Search.SearchResponse">
+        <member name="T:WhereWeGo.DTOs.GrailTravel.SDK.Response.Search.SearchResponse">
             <summary>
             搜尋車票所回應的資料結構
             </summary>
         </member>
-        <member name="P:WhereWeGo.GrailTravel.SDK.Response.Search.SearchResponse.railway">
+        <member name="P:WhereWeGo.DTOs.GrailTravel.SDK.Response.Search.SearchResponse.railway">
             <summary>
             铁路公司编码，详见Railway编码表格
             </summary>
@@ -191,7 +193,7 @@
             The railway.
             </value>
         </member>
-        <member name="P:WhereWeGo.GrailTravel.SDK.Response.Search.SearchResponse.solutions">
+        <member name="P:WhereWeGo.DTOs.GrailTravel.SDK.Response.Search.SearchResponse.solutions">
             <summary>
             旅程方案列表，详见Solution信息表格
             </summary>
@@ -199,7 +201,7 @@
             The solution.
             </value>
         </member>
-        <member name="T:WhereWeGo.GrailTravel.SDK.Response.Search.Railway">
+        <member name="T:WhereWeGo.DTOs.GrailTravel.SDK.Response.Search.Railway">
             <summary>
             Railway编码
             铁路公司        | 英文名        | 值
@@ -209,12 +211,12 @@
             Flixbus大巴公司 | Flixbus      | FB
             </summary>
         </member>
-        <member name="T:WhereWeGo.GrailTravel.SDK.Response.Search.From">
+        <member name="T:WhereWeGo.DTOs.GrailTravel.SDK.Response.Search.From">
             <summary>
             起始站信息,详见Station车站信息表格
             </summary>
         </member>
-        <member name="P:WhereWeGo.GrailTravel.SDK.Response.Search.From.code">
+        <member name="P:WhereWeGo.DTOs.GrailTravel.SDK.Response.Search.From.code">
             <summary>
             车站编码
             </summary>
@@ -222,7 +224,7 @@
             The code.
             </value>
         </member>
-        <member name="P:WhereWeGo.GrailTravel.SDK.Response.Search.From.name">
+        <member name="P:WhereWeGo.DTOs.GrailTravel.SDK.Response.Search.From.name">
             <summary>
             车站名称
             </summary>
@@ -230,12 +232,12 @@
             The name.
             </value>
         </member>
-        <member name="T:WhereWeGo.GrailTravel.SDK.Response.Search.To">
+        <member name="T:WhereWeGo.DTOs.GrailTravel.SDK.Response.Search.To">
             <summary>
             终点站编码，详见Station车站信息表格
             </summary>
         </member>
-        <member name="P:WhereWeGo.GrailTravel.SDK.Response.Search.To.code">
+        <member name="P:WhereWeGo.DTOs.GrailTravel.SDK.Response.Search.To.code">
             <summary>
             车站编码
             </summary>
@@ -243,7 +245,7 @@
             The code.
             </value>
         </member>
-        <member name="P:WhereWeGo.GrailTravel.SDK.Response.Search.To.name">
+        <member name="P:WhereWeGo.DTOs.GrailTravel.SDK.Response.Search.To.name">
             <summary>
             车站名称
             </summary>
@@ -251,7 +253,7 @@
             The name.
             </value>
         </member>
-        <member name="P:WhereWeGo.GrailTravel.SDK.Response.Search.Solution.from">
+        <member name="P:WhereWeGo.DTOs.GrailTravel.SDK.Response.Search.Solution.from">
             <summary>
             起始站信息,详见Station车站信息表格
             </summary>
@@ -259,7 +261,7 @@
             From.
             </value>
         </member>
-        <member name="P:WhereWeGo.GrailTravel.SDK.Response.Search.Solution.to">
+        <member name="P:WhereWeGo.DTOs.GrailTravel.SDK.Response.Search.Solution.to">
             <summary>
             终点站编码，详见Station车站信息表格
             </summary>
@@ -267,7 +269,7 @@
             To.
             </value>
         </member>
-        <member name="P:WhereWeGo.GrailTravel.SDK.Response.Search.Solution.departure">
+        <member name="P:WhereWeGo.DTOs.GrailTravel.SDK.Response.Search.Solution.departure">
             <summary>
             发车时间，UTC格式的本地时间，例如："2017-03-08T13:30:00+01:00"
             </summary>
@@ -275,7 +277,7 @@
             The departure.
             </value>
         </member>
-        <member name="P:WhereWeGo.GrailTravel.SDK.Response.Search.Solution.duration">
+        <member name="P:WhereWeGo.DTOs.GrailTravel.SDK.Response.Search.Solution.duration">
             <summary>
             Duration时长信息
             </summary>
@@ -283,7 +285,7 @@
             The duration.
             </value>
         </member>
-        <member name="P:WhereWeGo.GrailTravel.SDK.Response.Search.Solution.transfer_times">
+        <member name="P:WhereWeGo.DTOs.GrailTravel.SDK.Response.Search.Solution.transfer_times">
             <summary>
             转车次数
             </summary>
@@ -291,7 +293,7 @@
             The transfer times.
             </value>
         </member>
-        <member name="P:WhereWeGo.GrailTravel.SDK.Response.Search.Solution.sections">
+        <member name="P:WhereWeGo.DTOs.GrailTravel.SDK.Response.Search.Solution.sections">
             <summary>
             Sections，行程中的不同车型，详见Sections信息表格
             </summary>

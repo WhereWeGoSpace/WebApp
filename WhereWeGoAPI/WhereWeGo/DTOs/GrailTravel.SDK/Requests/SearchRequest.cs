@@ -1,12 +1,14 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace WhereWeGo.GrailTravel.SDK.Requests
+namespace WhereWeGo.DTOs.GrailTravel.SDK.Requests
 {
     /// <summary>
     /// 搜尋車票所需要輸入的參數
     /// </summary>
-    /// <seealso cref="WhereWeGo.GrailTravel.SDK.Requests.RequestBase" />
+    /// <seealso>
+    ///     <cref>WhereWeGo.GrailTravel.SDK.Requests.RequestBase</cref>
+    /// </seealso>
     public class SearchRequest : RequestBase
     {
         /// <summary>

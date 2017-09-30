@@ -127,18 +127,18 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="GrailTravel\SDK\DetieClient.cs" />
-    <Compile Include="GrailTravel\SDK\Config.cs" />
-    <Compile Include="GrailTravel\SDK\ParamSecure.cs" />
-    <Compile Include="GrailTravel\SDK\Requests\BookingRequest.cs" />
-    <Compile Include="GrailTravel\SDK\Requests\RequestBase.cs" />
-    <Compile Include="GrailTravel\SDK\Requests\SearchRequest.cs" />
-    <Compile Include="GrailTravel\SDK\Requests\SearchRequestAsync.cs" />
-    <Compile Include="GrailTravel\SDK\Response\Booking\BookingResponse.cs" />
-    <Compile Include="GrailTravel\SDK\Utilities.cs" />
+    <Compile Include="Models\GrailTravel\SDK\DetieClient.cs" />
+    <Compile Include="Models\GrailTravel\SDK\Config.cs" />
+    <Compile Include="Models\GrailTravel\SDK\ParamSecure.cs" />
+    <Compile Include="DTOs\GrailTravel.SDK\Requests\BookingRequest.cs" />
+    <Compile Include="DTOs\GrailTravel.SDK\Requests\ConfirmRequest.cs" />
+    <Compile Include="DTOs\GrailTravel.SDK\Requests\RequestBase.cs" />
+    <Compile Include="DTOs\GrailTravel.SDK\Requests\SearchRequest.cs" />
+    <Compile Include="DTOs\GrailTravel.SDK\Requests\SearchRequestAsync.cs" />
+    <Compile Include="DTOs\GrailTravel.SDK\Response\Booking\BookingResponse.cs" />
     <Compile Include="IoC\AutofacRegister.cs" />
     <Compile Include="Models\Implements\CheckOutService.cs" />
-    <Compile Include="GrailTravel\SDK\Response\Search\SearchResponse.cs" />
+    <Compile Include="DTOs\GrailTravel.SDK\Response\Search\SearchResponse.cs" />
     <Compile Include="Models\Implements\IssueTicketService.cs" />
     <Compile Include="Models\Interfaces\ICheckOutService.cs" />
     <Compile Include="Models\Interfaces\IIssueTicketService.cs" />

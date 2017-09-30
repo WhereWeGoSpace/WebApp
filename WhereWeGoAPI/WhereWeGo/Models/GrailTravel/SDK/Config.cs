@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace WhereWeGo.GrailTravel.SDK
+﻿namespace WhereWeGo.Models.GrailTravel.SDK
 {
     public static class Config
     {

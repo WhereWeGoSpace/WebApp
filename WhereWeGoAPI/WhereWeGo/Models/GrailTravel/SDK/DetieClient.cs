@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Threading;
-using System.Web;
 using RestSharp;
-using WhereWeGo.GrailTravel.SDK.Requests;
-using WhereWeGo.GrailTravel.SDK.Response;
-using WhereWeGo.GrailTravel.SDK.Response.Booking;
-using WhereWeGo.GrailTravel.SDK.Response.Search;
+using WhereWeGo.DTOs.GrailTravel.SDK.Requests;
+using WhereWeGo.DTOs.GrailTravel.SDK.Response.Booking;
+using WhereWeGo.DTOs.GrailTravel.SDK.Response.Search;
 
-namespace WhereWeGo.GrailTravel.SDK
+
+namespace WhereWeGo.Models.GrailTravel.SDK
 {
     public class DetieClient
     {
@@ -43,7 +41,7 @@ namespace WhereWeGo.GrailTravel.SDK
             return  response.Data;
         }
 
-        public string GetSearchResult(SearchAsync async)
+        public string Search_Async(SearchAsync async)
         {
             var dateTime = DateTime.Now.ToUniversalTime();
             var request = new SearchRequestAsync() {AsyncKey = async.Async};
@@ -69,7 +67,6 @@ namespace WhereWeGo.GrailTravel.SDK
             Response = response;
             return response.Content;
         }
-
 
         public SearchAsync Booking(BookingRequest bookingRequest)
         {
@@ -115,6 +112,50 @@ namespace WhereWeGo.GrailTravel.SDK
             }
             Response = response;
             return response.Data;
+        }
+
+        public SearchAsync Confirm(string onLineOrderId, ConfirmRequest confirmRequest)
+        {
+            var dateTime = DateTime.Now.ToUniversalTime();
+            var secure = new ParamSecure(Config.Secret, Config.ApiKey, dateTime, confirmRequest);
+            var signature = secure.Sign();
+
+            Request = new RestRequest($"api/v2/{onLineOrderId}/online_confirmations", Method.POST) { RequestFormat = DataFormat.Json };
+            Request.AddHeader("From", Config.ApiKey);
+            Request.AddHeader("Date", dateTime.ToString("r"));
+            Request.AddHeader("Authorization", signature);
+            Request.AddHeader("Api-Locale", "zh-CN");
+
+            var response = _client.Execute<SearchAsync>(Request);
+            Response = response;
+            return response.Data;
+        }
+
+        public string Confirm_Async(SearchAsync confirmAsyncKey)
+        {
+            var dateTime = DateTime.Now.ToUniversalTime();
+            var request = new SearchRequestAsync() { AsyncKey = confirmAsyncKey.Async };
+            var secure = new ParamSecure(Config.Secret, Config.ApiKey, dateTime, request);
+            var signature = secure.Sign();
+
+            Request = new RestRequest($"api/v2/async_results/{confirmAsyncKey.Async}", Method.GET);
+            Request.AddHeader("From", Config.ApiKey);
+            Request.AddHeader("Date", dateTime.ToString("r"));
+            Request.AddHeader("Authorization", signature);
+            Request.AddHeader("Api-Locale", "zh-CN");
+
+            var response = _client.Execute<BookingResponse>(Request);
+            var count = 0;
+
+            //資料若未Ready, 就Sleep再重試
+            while (response.Content.Equals("{\"description\":\"Async result not ready.\"}") && count < 10)
+            {
+                Thread.Sleep(5000);
+                response = _client.Execute<BookingResponse>(Request);
+                count++;
+            }
+            Response = response;
+            return response.Content;
         }
     }
 

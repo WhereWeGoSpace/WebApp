@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net;
-using System.Threading;
-using System.Web.Script.Serialization;
 using FluentAssertions;
 using Newtonsoft.Json;
 using NUnit.Framework;
-using NUnit.Framework.Internal;
 using RestSharp;
-using WhereWeGo.GrailTravel.SDK;
-using WhereWeGo.GrailTravel.SDK.Requests;
-using WhereWeGo.GrailTravel.SDK.Response;
-using WhereWeGo.GrailTravel.SDK.Response.Search;
+using WhereWeGo.DTOs.GrailTravel.SDK.Requests;
+using WhereWeGo.DTOs.GrailTravel.SDK.Response.Search;
+using WhereWeGo.Models.GrailTravel.SDK;
 
 namespace WhereWeGo.UnitTests.GrailTravel.SDK
 {
@@ -20,9 +16,9 @@ namespace WhereWeGo.UnitTests.GrailTravel.SDK
         private DetieClient _client;
 
         [SetUp]
-        public void Setup() 
+        public void Setup()
         {
-             _client = new DetieClient();
+            _client = new DetieClient();
         }
 
         [Test(Description = "測試呼叫API, but Server 端一直回應 httpStatus 500的錯誤")]
@@ -42,7 +38,7 @@ namespace WhereWeGo.UnitTests.GrailTravel.SDK
             var signature = secure.Sign();
 
             var client = new RestClient(Config.GrailTravelHost);
-            
+
             var request = new RestRequest($"api/v2/online_solutions?{searchReqeust.GetURL()}", Method.GET);
             request.AddHeader("From", Config.ApiKey);
             request.AddHeader("Date", dateTime.ToString("r"));
@@ -70,7 +66,7 @@ namespace WhereWeGo.UnitTests.GrailTravel.SDK
             //Act
             var asyncKey = _client.Search(searchReqeust);
 
-            return _client.GetSearchResult(asyncKey);
+            return _client.Search_Async(asyncKey);
         }
 
         [Test]
@@ -94,8 +90,7 @@ namespace WhereWeGo.UnitTests.GrailTravel.SDK
         [Test]
         public void GetSearchResult_先進行路線查詢_取得AsyncKey後_再查詢結果()
         {
-
-            var actual = GetSearchResult();      
+            var actual = GetSearchResult();
 
             //Assert
             _client.Response.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -106,7 +101,6 @@ namespace WhereWeGo.UnitTests.GrailTravel.SDK
             var response = JsonConvert.DeserializeObject<List<SearchResponse>>(actual);
             response.Count.Should().BeGreaterThan(0);
             response[0].solutions.Count.Should().BeGreaterThan(0);
-            
         }
 
         [Test]
@@ -114,29 +108,29 @@ namespace WhereWeGo.UnitTests.GrailTravel.SDK
         {
             var bookingRequest = new BookingRequest
             {
-                contact = new Contact()
+                contact = new Contact
                 {
                     address = "beijing",
                     email = "lp@163.com",
                     name = "Liping",
                     phone = "10086",
-                    postcode = "100100",
+                    postcode = "100100"
                 },
                 passengers = new List<Passenger>
                 {
-                    new Passenger()
+                    new Passenger
                     {
-                        last_name= "zhang",
-                        first_name= "san",
-                        birthdate= "1986-09-01",
-                        passport= "A123456",
-                        email= "x@a.cn",
-                        phone= "15000367081",
-                        gender= "male"
+                        last_name = "zhang",
+                        first_name = "san",
+                        birthdate = "1986-09-01",
+                        passport = "A123456",
+                        email = "x@a.cn",
+                        phone = "15000367081",
+                        gender = "male"
                     }
                 },
                 seat_reserved = true,
-                sections = new List<String>()
+                sections = new List<String>
                 {
                     "P_NPB7SR"
                 }
@@ -157,29 +151,29 @@ namespace WhereWeGo.UnitTests.GrailTravel.SDK
 
             var bookingRequest = new BookingRequest
             {
-                contact = new Contact()
+                contact = new Contact
                 {
                     address = "beijing",
                     email = "lp@163.com",
                     name = "Liping",
                     phone = "10086",
-                    postcode = "100100",
+                    postcode = "100100"
                 },
                 passengers = new List<Passenger>
                 {
-                    new Passenger()
+                    new Passenger
                     {
-                        last_name= "zhang",
-                        first_name= "san",
-                        birthdate= "1986-09-01",
-                        passport= "A123456",
-                        email= "x@a.cn",
-                        phone= "15000367081",
-                        gender= "male"
+                        last_name = "zhang",
+                        first_name = "san",
+                        birthdate = "1986-09-01",
+                        passport = "A123456",
+                        email = "x@a.cn",
+                        phone = "15000367081",
+                        gender = "male"
                     }
                 },
                 seat_reserved = true,
-                sections = new List<String>()
+                sections = new List<String>
                 {
                     searchRoute[0].solutions[0].sections[0].offers[0].services[0].booking_code
                     //"P_NPB7SR"
@@ -193,6 +187,61 @@ namespace WhereWeGo.UnitTests.GrailTravel.SDK
             _client.Response.StatusCode.Should().Be(HttpStatusCode.OK);
         }
 
+        [Test]
+        public void Confirm_調用Confirm_API()
+        {
+            var searchResult = GetSearchResult();
+            var searchRoute = JsonConvert.DeserializeObject<List<SearchResponse>>(searchResult);
 
+            var bookingRequest = new BookingRequest
+            {
+                contact = new Contact
+                {
+                    address = "beijing",
+                    email = "lp@163.com",
+                    name = "Liping",
+                    phone = "10086",
+                    postcode = "100100"
+                },
+                passengers = new List<Passenger>
+                {
+                    new Passenger
+                    {
+                        last_name = "zhang",
+                        first_name = "san",
+                        birthdate = "1986-09-01",
+                        passport = "A123456",
+                        email = "x@a.cn",
+                        phone = "15000367081",
+                        gender = "male"
+                    }
+                },
+                seat_reserved = true,
+                sections = new List<String>
+                {
+                    searchRoute[0].solutions[0].sections[0].offers[0].services[0].booking_code
+                    //"P_NPB7SR"
+                }
+            };
+            var bookingAsyncKey = _client.Booking(bookingRequest);
+
+            var response = _client.Booking_Async(bookingAsyncKey);
+
+            var confirmRequest = new ConfirmRequest
+            {
+                credit_card = new CreditCard
+                {
+                    number = "37887690145*******",
+                    exp_month = 11,
+                    exp_year = 20,
+                    cvv = "***"
+                }
+            };
+            var confirmAsync = _client.Confirm(response.id, confirmRequest);
+            Console.Write(_client.Response);
+            Console.Write(confirmAsync);
+
+            _client.Response.StatusCode.Should().Be(HttpStatusCode.Created);
+        }
     }
 }
