@@ -62,7 +62,7 @@ namespace WhereWeGo.Controllers
             return Ok(result);
         }
 
-        [HttpGet]
+        [HttpPost]
         [ResponseType(typeof(BookingRequest))]
         [Route("Booking")]
         public async Task<IHttpActionResult> Booking([FromBody]Booking bookInfo)
@@ -83,7 +83,7 @@ namespace WhereWeGo.Controllers
             return Ok(result);
         }
 
-        [HttpGet]
+        [HttpPost]
         [ResponseType(typeof(bool))]
         [Route("Payment")]
         public async Task<IHttpActionResult> Payment()

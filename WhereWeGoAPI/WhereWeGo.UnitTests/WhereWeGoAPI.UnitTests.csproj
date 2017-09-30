@@ -75,6 +75,9 @@
       <Name>WhereWeGoAPI</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Model\" />
+  </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
