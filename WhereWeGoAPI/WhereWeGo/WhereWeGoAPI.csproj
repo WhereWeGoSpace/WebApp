@@ -70,6 +70,7 @@
     <Reference Include="Swashbuckle.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cd1bb07a5ac7c7bc, processorArchitecture=MSIL">
       <HintPath>..\packages\Swashbuckle.Core.5.6.0\lib\net40\Swashbuckle.Core.dll</HintPath>
     </Reference>
+    <Reference Include="System" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -138,6 +139,7 @@
     <Compile Include="IoC\AutofacRegister.cs" />
     <Compile Include="Models\Implements\CheckOutService.cs" />
     <Compile Include="GrailTravel\SDK\Response\Search\SearchResponse.cs" />
+    <Compile Include="Models\Implements\IssueTicketService.cs" />
     <Compile Include="Models\Interfaces\ICheckOutService.cs" />
     <Compile Include="Models\Interfaces\IIssueTicketService.cs" />
     <Compile Include="Models\Interfaces\IJourneyService.cs" />
@@ -156,7 +158,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
