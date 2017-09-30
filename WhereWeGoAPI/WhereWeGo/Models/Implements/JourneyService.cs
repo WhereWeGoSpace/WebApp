@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
 using WhereWeGoAPI.DTOs;
+using WhereWeGoAPI.DTOs.GrailTravel.SDK.Requests;
+using WhereWeGoAPI.DTOs.GrailTravel.SDK.Response.Search;
+using WhereWeGoAPI.Models.GrailTravel.SDK;
 using WhereWeGoAPI.Models.Interfaces;
 
 namespace WhereWeGoAPI.Models.Implements
@@ -10,9 +14,16 @@ namespace WhereWeGoAPI.Models.Implements
     {
         private IEnumerable<Traveling> _favorit;
         private Random random = new Random();
+        private IDetieClient _client = null;
 
         public JourneyService()
+            : this(new DetieClient())
         {
+        }
+
+        public JourneyService(IDetieClient client)
+        {
+            this._client = client;
             int milSecond = DateTime.Now.Millisecond;
             this._favorit = new List<Traveling> {
                 //法国出发
@@ -99,7 +110,29 @@ namespace WhereWeGoAPI.Models.Implements
 
             result = this._favorit.ElementAt(num);
 
+            var searchResult = GetSearchResult(result.From_Code, result.To_Code);
+            var searchRoute = JsonConvert.DeserializeObject<List<SearchResponse>>(searchResult);
+            if (searchResult == null || searchResult.Count() == 0)
+                throw new Exception("There is no 車次");
+
             return result;
+        }
+
+        private String GetSearchResult(string from_code, string to_code)
+        {
+            var searchReqeust = new SearchRequest
+            {
+                StartStationCode = from_code,
+                DestinationStationCode = to_code,
+                StartTime = DateTime.Now.AddDays(20),
+                NumberOfAdult = 1,
+                NumberOfChildren = 0
+            };
+
+            //Act
+            var asyncKey = _client.Search(searchReqeust);
+
+            return _client.Search_Async(asyncKey);
         }
     }
 }
