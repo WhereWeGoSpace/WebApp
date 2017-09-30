@@ -65,13 +65,13 @@ namespace WhereWeGo.Controllers
         [HttpGet]
         [ResponseType(typeof(BookingRequest))]
         [Route("Booking")]
-        public async Task<IHttpActionResult> Booking([FromUri]string from_code, [FromUri]string to_code)
+        public async Task<IHttpActionResult> Booking([FromBody]Booking bookInfo)
         {
             bool result = default(bool);
 
             try
             {
-                BookingRequest bookingResult = this._checkOutSvc.BookTraveling(from_code, to_code);
+                BookingRequest bookingResult = this._checkOutSvc.BookTraveling(bookInfo);
                 result = this._checkOutSvc.Pay(100);
             }
             catch (Exception ex)

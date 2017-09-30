@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using WhereWeGo.DTOs;
 using WhereWeGo.DTOs.GrailTravel.SDK.Requests;
 using WhereWeGo.DTOs.GrailTravel.SDK.Response.Search;
 using WhereWeGo.Models.GrailTravel.SDK;
@@ -17,34 +18,15 @@ namespace WhereWeGo.Models.Implements
             this._client = new DetieClient();
         }
 
-        public BookingRequest BookTraveling(string from_code, string to_code)
+        public BookingRequest BookTraveling(Booking bookingInfo)
         {
-            var searchResult = GetSearchResult(from_code, to_code);
+            var searchResult = GetSearchResult(bookingInfo.From_Code, bookingInfo.To_Code);
             var searchRoute = JsonConvert.DeserializeObject<List<SearchResponse>>(searchResult);
 
             var bookingRequest = new BookingRequest
             {
-                contact = new Contact
-                {
-                    address = "beijing",
-                    email = "lp@163.com",
-                    name = "Liping",
-                    phone = "10086",
-                    postcode = "100100"
-                },
-                passengers = new List<Passenger>
-                {
-                    new Passenger
-                    {
-                        last_name = "zhang",
-                        first_name = "san",
-                        birthdate = "1986-09-01",
-                        passport = "A123456",
-                        email = "x@a.cn",
-                        phone = "15000367081",
-                        gender = "male"
-                    }
-                },
+                contact = bookingInfo.Contactor,
+                passengers = bookingInfo.Passengers,
                 seat_reserved = true,
                 sections = new List<String>
                 {

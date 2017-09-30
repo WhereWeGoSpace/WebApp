@@ -126,9 +126,8 @@
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\TicketController.cs" />
-    <Compile Include="DTOs\TicketIssuing.cs" />
+    <Compile Include="DTOs\Booking.cs" />
     <Compile Include="DTOs\Traveling.cs" />
-    <Compile Include="DTOs\UserInfo.cs" />
     <Compile Include="Exceptions\TimeoutException.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
