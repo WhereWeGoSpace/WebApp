@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using System.Net;
 using System.Threading;
 using RestSharp;
-using WhereWeGo.DTOs.GrailTravel.SDK.Requests;
-using WhereWeGo.DTOs.GrailTravel.SDK.Response.Confirm;
 using WhereWeGoAPI.DTOs.GrailTravel.SDK.Requests;
 using WhereWeGoAPI.DTOs.GrailTravel.SDK.Response.Booking;
+using WhereWeGoAPI.DTOs.GrailTravel.SDK.Response.Confirm;
 using WhereWeGoAPI.DTOs.GrailTravel.SDK.Response.Search;
-using WhereWeGoAPI.Models.GrailTravel.SDK;
 
-namespace WhereWeGo.Models.GrailTravel.SDK
+namespace WhereWeGoAPI.Models.GrailTravel.SDK
 {
     public class DetieClient
     {

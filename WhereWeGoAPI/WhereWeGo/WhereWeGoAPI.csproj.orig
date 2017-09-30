@@ -12,8 +12,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WhereWeGo</RootNamespace>
-    <AssemblyName>WhereWeGo</AssemblyName>
+    <RootNamespace>WhereWeGoAPI</RootNamespace>
+    <AssemblyName>WhereWeGoAPI</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
@@ -67,14 +67,14 @@
     <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RestSharp.105.2.3\lib\net46\RestSharp.dll</HintPath>
     </Reference>
-<<<<<<< HEAD
     <Reference Include="Swashbuckle.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cd1bb07a5ac7c7bc, processorArchitecture=MSIL">
       <HintPath>..\packages\Swashbuckle.Core.5.6.0\lib\net40\Swashbuckle.Core.dll</HintPath>
     </Reference>
-=======
     <Reference Include="System" />
->>>>>>> 2c4a3daf48eea0261e886b0179d4a0f8033ab80b
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.Web.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.3\lib\net45\System.Web.Cors.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -83,6 +83,9 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Cors.5.2.3\lib\net45\System.Web.Http.Cors.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -122,39 +125,56 @@
     <Compile Include="App_Start\AutofacConfig.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-<<<<<<< HEAD
     <Compile Include="Controllers\TicketController.cs" />
-    <Compile Include="DTOs\TicketIssuing.cs" />
-    <Compile Include="DTOs\Traveling.cs" />
-    <Compile Include="DTOs\UserInfo.cs" />
-    <Compile Include="Exceptions\TimeoutException.cs" />
+    <Compile Include="DTOs\Booking.cs" />
+    <Compile Include="DTOs\GrailTravel.SDK\Response\Passenger.cs" />
+    <Compile Include="DTOs\GrailTravel.SDK\Requests\DownloadRequestForSecure.cs" />
+    <Compile Include="DTOs\GrailTravel.SDK\Response\Amount.cs" />
+    <Compile Include="DTOs\GrailTravel.SDK\Response\Available.cs" />
+    <Compile Include="DTOs\GrailTravel.SDK\Response\ChargingPrice.cs" />
+    <Compile Include="DTOs\GrailTravel.SDK\Response\Confirm\ConfirmResponse.cs" />
+<<<<<<< HEAD
+    <Compile Include="DTOs\Payment.cs" />
 =======
->>>>>>> 2c4a3daf48eea0261e886b0179d4a0f8033ab80b
+    <Compile Include="DTOs\GrailTravel.SDK\Response\Duration.cs" />
+    <Compile Include="DTOs\GrailTravel.SDK\Response\From.cs" />
+    <Compile Include="DTOs\GrailTravel.SDK\Response\Offer.cs" />
+    <Compile Include="DTOs\GrailTravel.SDK\Response\Order.cs" />
+    <Compile Include="DTOs\GrailTravel.SDK\Response\PaymentPrice.cs" />
+    <Compile Include="DTOs\GrailTravel.SDK\Response\Price.cs" />
+    <Compile Include="DTOs\GrailTravel.SDK\Response\Railway.cs" />
+    <Compile Include="DTOs\GrailTravel.SDK\Response\RebateAmount.cs" />
+    <Compile Include="DTOs\GrailTravel.SDK\Response\Record.cs" />
+    <Compile Include="DTOs\GrailTravel.SDK\Response\RtpPrice.cs" />
+    <Compile Include="DTOs\GrailTravel.SDK\Response\Section.cs" />
+    <Compile Include="DTOs\GrailTravel.SDK\Response\Service.cs" />
+    <Compile Include="DTOs\GrailTravel.SDK\Response\Solution.cs" />
+    <Compile Include="DTOs\GrailTravel.SDK\Response\Ticket.cs" />
+    <Compile Include="DTOs\GrailTravel.SDK\Response\TicketPrice.cs" />
+    <Compile Include="DTOs\GrailTravel.SDK\Response\To.cs" />
+    <Compile Include="DTOs\GrailTravel.SDK\Response\Train.cs" />
+>>>>>>> 0b3de3e5b7ddff7396c0dfce6361c94ccfb08f54
+    <Compile Include="DTOs\Traveling.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="GrailTravel\SDK\DetieClient.cs" />
-    <Compile Include="GrailTravel\SDK\Config.cs" />
-    <Compile Include="GrailTravel\SDK\ParamSecure.cs" />
-    <Compile Include="GrailTravel\SDK\Requests\BookingRequest.cs" />
-    <Compile Include="GrailTravel\SDK\Requests\RequestBase.cs" />
-    <Compile Include="GrailTravel\SDK\Requests\SearchRequest.cs" />
-    <Compile Include="GrailTravel\SDK\Requests\SearchRequestAsync.cs" />
-    <Compile Include="GrailTravel\SDK\Response\Booking\BookingResponse.cs" />
-    <Compile Include="GrailTravel\SDK\Utilities.cs" />
+    <Compile Include="Models\GrailTravel\SDK\DetieClient.cs" />
+    <Compile Include="Models\GrailTravel\SDK\Config.cs" />
+    <Compile Include="Models\GrailTravel\SDK\ParamSecure.cs" />
+    <Compile Include="DTOs\GrailTravel.SDK\Requests\BookingRequest.cs" />
+    <Compile Include="DTOs\GrailTravel.SDK\Requests\ConfirmRequest.cs" />
+    <Compile Include="DTOs\GrailTravel.SDK\Requests\RequestBase.cs" />
+    <Compile Include="DTOs\GrailTravel.SDK\Requests\SearchRequest.cs" />
+    <Compile Include="DTOs\GrailTravel.SDK\Requests\SearchRequestAsync.cs" />
+    <Compile Include="DTOs\GrailTravel.SDK\Response\Booking\BookingResponse.cs" />
     <Compile Include="IoC\AutofacRegister.cs" />
-<<<<<<< HEAD
     <Compile Include="Models\Implements\CheckOutService.cs" />
+    <Compile Include="DTOs\GrailTravel.SDK\Response\Search\SearchResponse.cs" />
     <Compile Include="Models\Implements\IssueTicketService.cs" />
     <Compile Include="Models\Interfaces\ICheckOutService.cs" />
     <Compile Include="Models\Interfaces\IIssueTicketService.cs" />
     <Compile Include="Models\Interfaces\IJourneyService.cs" />
     <Compile Include="Models\Implements\JourneyService.cs" />
-=======
-    <Compile Include="Models\ITestService.cs" />
-    <Compile Include="GrailTravel\SDK\Response\Search\SearchResponse.cs" />
-    <Compile Include="Models\TestService.cs" />
->>>>>>> 2c4a3daf48eea0261e886b0179d4a0f8033ab80b
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -169,7 +189,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

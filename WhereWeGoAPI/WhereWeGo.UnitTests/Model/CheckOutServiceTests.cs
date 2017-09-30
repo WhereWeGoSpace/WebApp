@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using FluentAssertions;
 using NUnit.Framework;
-using WhereWeGo.DTOs.GrailTravel.SDK.Response.Confirm;
 using WhereWeGoAPI.DTOs;
 using WhereWeGoAPI.DTOs.GrailTravel.SDK.Requests;
+using WhereWeGoAPI.DTOs.GrailTravel.SDK.Response;
 using WhereWeGoAPI.DTOs.GrailTravel.SDK.Response.Booking;
+using WhereWeGoAPI.DTOs.GrailTravel.SDK.Response.Confirm;
 using WhereWeGoAPI.Models.Implements;
 using WhereWeGoAPI.Models.Interfaces;
 
@@ -15,21 +16,21 @@ namespace WhereWeGoAPI.UnitTests.Model
     [TestFixture]
     public class CheckOutServiceTests
     {
-        private ICheckOutService _svc;
-
         [SetUp]
         public void SetUp()
         {
-            this._svc = new CheckOutService();
+            _svc = new CheckOutService();
         }
+
+        private ICheckOutService _svc;
 
         [Test]
         public async Task CheckOutService_BookTraveling_MethodExecutionIsSuccess()
         {
             //Arrange
-            BookingResponse expect = new BookingResponse { },
+            BookingResponse expect = new BookingResponse(),
                 actual = null;
-            Booking bookingInfo = new Booking
+            var bookingInfo = new Booking
             {
                 From_Code = "ST_EZVVG1X5",
                 To_Code = "ST_D8NNN9ZK",
@@ -41,9 +42,9 @@ namespace WhereWeGoAPI.UnitTests.Model
                     phone = "10086",
                     postcode = "100100"
                 },
-                Passengers = new List<DTOs.GrailTravel.SDK.Requests.Passenger>
+                Passengers = new List<Passenger>
                 {
-                    new DTOs.GrailTravel.SDK.Requests.Passenger
+                    new Passenger
                     {
                         last_name = "zhang",
                         first_name = "san",
@@ -57,7 +58,7 @@ namespace WhereWeGoAPI.UnitTests.Model
             };
 
             //Act
-            this._svc.BookTraveling(bookingInfo);
+            _svc.BookTraveling(bookingInfo);
 
             //Asert
             actual.Should().Be(actual);
@@ -67,11 +68,11 @@ namespace WhereWeGoAPI.UnitTests.Model
         public async Task CheckOutService_Pay_MethodExecutionIsSuccess()
         {
             //Arrange
-            ConfirmResponse expect = new ConfirmResponse { },
+            ConfirmResponse expect = new ConfirmResponse(),
                 actual = null;
 
-            string bookingId = Guid.NewGuid().ToString();
-            ConfirmRequest payRequest = new ConfirmRequest
+            var bookingId = Guid.NewGuid().ToString();
+            var payRequest = new ConfirmRequest
             {
                 credit_card = new CreditCard
                 {
@@ -83,7 +84,7 @@ namespace WhereWeGoAPI.UnitTests.Model
             };
 
             //Act
-            this._svc.Pay(bookingId, payRequest);
+            _svc.Pay(bookingId, payRequest);
 
             //Assert
             expect.Should().Be(actual);

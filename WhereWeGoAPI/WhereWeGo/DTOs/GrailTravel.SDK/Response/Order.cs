@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using WhereWeGo.DTOs.GrailTravel.SDK;
+using WhereWeGoAPI.DTOs.GrailTravel.SDK.Requests;
 
 namespace WhereWeGoAPI.DTOs.GrailTravel.SDK.Response
 {
