@@ -6,14 +6,22 @@ using Newtonsoft.Json;
 using NUnit.Framework;
 using RestSharp;
 using WhereWeGo.DTOs.GrailTravel.SDK.Requests;
+using WhereWeGo.DTOs.GrailTravel.SDK.Response.Booking;
 using WhereWeGo.DTOs.GrailTravel.SDK.Response.Search;
 using WhereWeGo.Models.GrailTravel.SDK;
+using Passenger = WhereWeGo.DTOs.GrailTravel.SDK.Requests.Passenger;
 
 namespace WhereWeGo.UnitTests.GrailTravel.SDK
 {
     internal class ClientTests
     {
         private DetieClient _client;
+        private SearchAsync searchAsyncKey;
+        private String _SearchTextResult;
+        private List<SearchResponse> _searchResult;
+        private SearchAsync bookingAsyncKey;
+        private BookingResponse bookingResult;
+        private SearchAsync confirmAsync;
 
         [SetUp]
         public void Setup()
@@ -21,8 +29,9 @@ namespace WhereWeGo.UnitTests.GrailTravel.SDK
             _client = new DetieClient();
         }
 
-        [Test(Description = "測試呼叫API, but Server 端一直回應 httpStatus 500的錯誤")]
-        public void GetSearch_github上的測試SampleCode()
+        [Ignore("_github上的測試SampleCode")]
+        [Test]
+        public void T1_GetSearch_github上的測試SampleCode()
         {
             var searchReqeust = new SearchRequest
             {
@@ -62,7 +71,7 @@ namespace WhereWeGo.UnitTests.GrailTravel.SDK
                 NumberOfAdult = 1,
                 NumberOfChildren = 0
             };
-
+            
             //Act
             var asyncKey = _client.Search(searchReqeust);
 
@@ -70,7 +79,8 @@ namespace WhereWeGo.UnitTests.GrailTravel.SDK
         }
 
         [Test]
-        public void Search_進行路線查詢_應能得到AsyncKey()
+        [Order(0)]
+        public void T2_Search_進行路線查詢_應能得到AsyncKey()
         {
             var searchReqeust = new SearchRequest
             {
@@ -81,30 +91,32 @@ namespace WhereWeGo.UnitTests.GrailTravel.SDK
                 NumberOfChildren = 0
             };
 
-            var actual = _client.Search(searchReqeust);
+            searchAsyncKey = _client.Search(searchReqeust);
 
             _client.Response.StatusCode.Should().Be(HttpStatusCode.OK);
-            Console.Write(actual);
+            Console.Write(searchAsyncKey);
         }
 
         [Test]
-        public void GetSearchResult_先進行路線查詢_取得AsyncKey後_再查詢結果()
+        [Order(1)]
+        public void T3_Search_先進行路線查詢_取得AsyncKey後_再查詢結果()
         {
-            var actual = GetSearchResult();
+            _SearchTextResult = _client.Search_Async(searchAsyncKey);
 
             //Assert
             _client.Response.StatusCode.Should().Be(HttpStatusCode.OK);
 
-            Console.Write(actual);
+            Console.Write(_SearchTextResult);
             Console.Write(_client.Response.Content);
 
-            var response = JsonConvert.DeserializeObject<List<SearchResponse>>(actual);
-            response.Count.Should().BeGreaterThan(0);
-            response[0].solutions.Count.Should().BeGreaterThan(0);
+            _searchResult = JsonConvert.DeserializeObject<List<SearchResponse>>(_SearchTextResult);
+            _searchResult.Count.Should().BeGreaterThan(0);
+            _searchResult[0].solutions.Count.Should().BeGreaterThan(0);
         }
 
         [Test]
-        public void Booking_調用Book_API()
+        [Order(2)]
+        public void T4_Booking_調用Book_API()
         {
             var bookingRequest = new BookingRequest
             {
@@ -132,101 +144,69 @@ namespace WhereWeGo.UnitTests.GrailTravel.SDK
                 seat_reserved = true,
                 sections = new List<String>
                 {
-                    "P_NPB7SR"
+                    _searchResult[0].solutions[0].sections[0].offers[0].services[0].booking_code
                 }
             };
-            var bookingAsyncKey = _client.Booking(bookingRequest);
+            bookingAsyncKey = _client.Booking(bookingRequest);
 
             Console.Write(_client.Response.Content);
+            
             //Assert
             _client.Response.StatusCode.Should().Be(HttpStatusCode.Created);
             Console.Write(bookingAsyncKey);
         }
 
         [Test]
-        public void Booking_取得Booking結果()
+        [Order(3)]
+        public void T5_Booking_取得Booking結果()
         {
-            var searchResult = GetSearchResult();
-            var searchRoute = JsonConvert.DeserializeObject<List<SearchResponse>>(searchResult);
-
-            var bookingRequest = new BookingRequest
-            {
-                contact = new Contact
-                {
-                    address = "beijing",
-                    email = "lp@163.com",
-                    name = "Liping",
-                    phone = "10086",
-                    postcode = "100100"
-                },
-                passengers = new List<Passenger>
-                {
-                    new Passenger
-                    {
-                        last_name = "zhang",
-                        first_name = "san",
-                        birthdate = "1986-09-01",
-                        passport = "A123456",
-                        email = "x@a.cn",
-                        phone = "15000367081",
-                        gender = "male"
-                    }
-                },
-                seat_reserved = true,
-                sections = new List<String>
-                {
-                    searchRoute[0].solutions[0].sections[0].offers[0].services[0].booking_code
-                    //"P_NPB7SR"
-                }
-            };
-            var bookingAsyncKey = _client.Booking(bookingRequest);
-
-            var response = _client.Booking_Async(bookingAsyncKey);
+            bookingResult = _client.Booking_Async(bookingAsyncKey);
             Console.Write(_client.Response.Content);
-            Console.Write(response);
+            Console.Write(bookingResult);
             _client.Response.StatusCode.Should().Be(HttpStatusCode.OK);
         }
 
         [Test]
-        public void Confirm_調用Confirm_API()
+        [Order(4)]
+        public void T6_Confirm_調用Confirm_API()
         {
-            var searchResult = GetSearchResult();
-            var searchRoute = JsonConvert.DeserializeObject<List<SearchResponse>>(searchResult);
+            //var searchResult = GetSearchResult();
+            //var searchRoute = JsonConvert.DeserializeObject<List<SearchResponse>>(searchResult);
 
-            var bookingRequest = new BookingRequest
-            {
-                contact = new Contact
-                {
-                    address = "beijing",
-                    email = "lp@163.com",
-                    name = "Liping",
-                    phone = "10086",
-                    postcode = "100100"
-                },
-                passengers = new List<Passenger>
-                {
-                    new Passenger
-                    {
-                        last_name = "zhang",
-                        first_name = "san",
-                        birthdate = "1986-09-01",
-                        passport = "A123456",
-                        email = "x@a.cn",
-                        phone = "15000367081",
-                        gender = "male"
-                    }
-                },
-                seat_reserved = true,
-                sections = new List<String>
-                {
-                    searchRoute[0].solutions[0].sections[0].offers[0].services[0].booking_code
-                    //"P_NPB7SR"
-                }
-            };
-            var bookingAsyncKey = _client.Booking(bookingRequest);
+            //var bookingRequest = new BookingRequest
+            //{
+            //    contact = new Contact
+            //    {
+            //        address = "beijing",
+            //        email = "lp@163.com",
+            //        name = "Liping",
+            //        phone = "10086",
+            //        postcode = "100100"
+            //    },
+            //    passengers = new List<Passenger>
+            //    {
+            //        new Passenger
+            //        {
+            //            last_name = "zhang",
+            //            first_name = "san",
+            //            birthdate = "1986-09-01",
+            //            passport = "A123456",
+            //            email = "x@a.cn",
+            //            phone = "15000367081",
+            //            gender = "male"
+            //        }
+            //    },
+            //    seat_reserved = true,
+            //    sections = new List<String>
+            //    {
+            //        searchRoute[0].solutions[0].sections[0].offers[0].services[0].booking_code
+            //        //"P_NPB7SR"
+            //    }
+            //};
+            //var bookingAsyncKey = _client.Booking(bookingRequest);
 
-            var response = _client.Booking_Async(bookingAsyncKey);
-
+            //var bookingResult = _client.Booking_Async(bookingAsyncKey);
+            //Console.Write(bookingResult);
             var confirmRequest = new ConfirmRequest
             {
                 credit_card = new CreditCard
@@ -237,11 +217,26 @@ namespace WhereWeGo.UnitTests.GrailTravel.SDK
                     cvv = "***"
                 }
             };
-            var confirmAsync = _client.Confirm(response.id, confirmRequest);
-            Console.Write(_client.Response);
-            Console.Write(confirmAsync);
 
+            Console.WriteLine($"OnLine_OrderId={bookingResult.id}");
+
+            confirmAsync = _client.Confirm(bookingResult.id, confirmRequest);
+            Console.WriteLine(_client.Response.Content);
+            
             _client.Response.StatusCode.Should().Be(HttpStatusCode.Created);
+        }
+
+        [Test]
+        [Order(5)]
+        public void T7_Confirm_取得Confirm結果_API()
+        {
+            
+
+            var confirmResult = _client.Confirm_Async(confirmAsync);
+
+            Console.WriteLine(confirmResult);
+
+            _client.Response.StatusCode.Should().Be(HttpStatusCode.OK);
         }
     }
 }
