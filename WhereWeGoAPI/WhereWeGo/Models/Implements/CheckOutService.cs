@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
 using WhereWeGoAPI.DTOs;
 using WhereWeGoAPI.DTOs.GrailTravel.SDK.Requests;
 using WhereWeGoAPI.DTOs.GrailTravel.SDK.Response.Booking;
 using WhereWeGoAPI.DTOs.GrailTravel.SDK.Response.Confirm;
-using WhereWeGoAPI.DTOs.GrailTravel.SDK.Response.Search;
 using WhereWeGoAPI.Models.GrailTravel.SDK;
 using WhereWeGoAPI.Models.Interfaces;
 
@@ -29,9 +27,6 @@ namespace WhereWeGoAPI.Models.Implements
         {
             BookingResponse resp = null;
 
-            var searchResult = GetSearchResult(bookingInfo.From_Code, bookingInfo.To_Code);
-            var searchRoute = JsonConvert.DeserializeObject<List<SearchResponse>>(searchResult);
-
             var bookingRequest = new BookingRequest
             {
                 contact = bookingInfo.Contactor,
@@ -39,7 +34,7 @@ namespace WhereWeGoAPI.Models.Implements
                 seat_reserved = true,
                 sections = new List<String>
                 {
-                    searchRoute[0].solutions[0].sections[0].offers[0].services[0].booking_code
+                    bookingInfo.Booking_Code
                 }
             };
 

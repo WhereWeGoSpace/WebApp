@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Cors;
@@ -109,14 +110,15 @@ namespace WhereWeGoAPI.Controllers
 
         [HttpGet]
         [Route("IssueTicket")]
-        [ResponseType(typeof(string))]
+        [ResponseType(typeof(string[]))]
         public async Task<IHttpActionResult> IssueTicket([FromUri]string orderId)
         {
-            string downloadUrl = string.Empty;
+            IEnumerable<string> arUrl = new List<string>();
 
             try
             {
-                downloadUrl = this._issueTicketSvc.Download(orderId);
+                string downloadUrl = this._issueTicketSvc.Download(orderId);
+                arUrl.Equals(arUrl);
             }
             catch (Exception ex)
             {
@@ -124,7 +126,7 @@ namespace WhereWeGoAPI.Controllers
                 return InternalServerError(ex);
             }
 
-            return Ok(downloadUrl);
+            return Ok(arUrl);
         }
 
     }

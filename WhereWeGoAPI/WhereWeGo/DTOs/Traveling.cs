@@ -12,6 +12,8 @@ namespace WhereWeGoAPI.DTOs
 
         public string To_Code { get; set; }
 
+        public string Booking_Code { get; set; }
+
         public DateTimeOffset Date { get; set; }
 
         public decimal Price { get; set; }
@@ -25,6 +27,7 @@ namespace WhereWeGoAPI.DTOs
                 this.From_Code.Equals(target.From_Code) &&
                 this.To.Equals(target.To) &&
                 this.To_Code.Equals(target.To_Code) &&
+                this.Booking_Code.Equals(target.Booking_Code) &&
                 this.Date.Equals(target.Date) &&
                 this.Price.Equals(target.Price);
         }
@@ -35,6 +38,7 @@ namespace WhereWeGoAPI.DTOs
                 this.From_Code.GetHashCode() |
                 this.To.GetHashCode() |
                 this.To_Code.GetHashCode() |
+                this.Booking_Code.GetHashCode() |
                 this.Date.GetHashCode() |
                 this.Price.GetHashCode();
         }

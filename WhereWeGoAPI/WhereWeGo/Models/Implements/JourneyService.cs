@@ -45,12 +45,6 @@ namespace WhereWeGoAPI.Models.Implements
                     Date = DateTime.Now.Add(TimeSpan.FromDays(random.Next()%7)),
                     Price=328
                 },
-                new Traveling {
-                    From="Nice Ville", From_Code="ST_LYKO4G43",
-                    To="Milano Centralee",To_Code="ST_EZVVG1X5",
-                    Date = DateTime.Now.Add(TimeSpan.FromDays(random.Next()%7)),
-                    Price=288
-                },
 
                 //荷兰、比利时、卢森堡出发
                 new Traveling {
@@ -66,31 +60,6 @@ namespace WhereWeGoAPI.Models.Implements
                     Price=324
                 },
 
-                //瑞士出发
-                new Traveling {
-                    From="Zürich HB", From_Code="ST_EZVVZO2X",
-                    To="Milano Centrale",To_Code="ST_EZVVG1X5",
-                    Date = DateTime.Now.Add(TimeSpan.FromDays(random.Next()%7)),
-                    Price=123
-                },
-                new Traveling {
-                    From="Geneve", From_Code="ST_E7GGK700",
-                    To="Milano Centrale",To_Code="ST_EZVVG1X5",
-                    Date = DateTime.Now.Add(TimeSpan.FromDays(random.Next()%7)),
-                    Price=323
-                },
-                new Traveling {
-                    From="Basel SBB", From_Code="ST_E5KKZ82Y",
-                    To="Milano Centrale",To_Code="ST_EZVVG1X5",
-                    Date = DateTime.Now.Add(TimeSpan.FromDays(random.Next()%7)),
-                    Price=188
-                },
-                new Traveling {
-                    From="Luzern", From_Code="ST_EZVVZMZG",
-                    To="Milano Centrale",To_Code="ST_EZVVG1X5",
-                    Date = DateTime.Now.Add(TimeSpan.FromDays(random.Next()%7)),
-                    Price=228
-                },
             };
         }
 
@@ -105,15 +74,22 @@ namespace WhereWeGoAPI.Models.Implements
         {
             Traveling result = null;
 
-
             int num = random.Next() % this._favorit.Count();
 
             result = this._favorit.ElementAt(num);
 
             var searchResult = GetSearchResult(result.From_Code, result.To_Code);
-            var searchRoute = JsonConvert.DeserializeObject<List<SearchResponse>>(searchResult);
-            if (searchResult == null || searchResult.Count() == 0)
-                throw new Exception("There is no 車次");
+            try
+            {
+                var searchRoute = JsonConvert.DeserializeObject<List<SearchResponse>>(searchResult);
+                var filtered = searchRoute.Where(o => o.railway.code.Equals("FB"));
+                if (filtered.Count() == 0)
+                    throw new Exception();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("車次不存在", ex);
+            }
 
             return result;
         }
