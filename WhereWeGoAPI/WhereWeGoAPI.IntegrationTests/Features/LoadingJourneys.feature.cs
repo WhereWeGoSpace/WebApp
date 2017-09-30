@@ -76,13 +76,19 @@ this.ScenarioSetup(scenarioInfo);
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
                         "from",
-                        "to"});
+                        "from_code",
+                        "to",
+                        "to_code"});
             table1.AddRow(new string[] {
                         "Berlin",
-                        "Munchen"});
+                        "ST_E0203JK4",
+                        "Munchen",
+                        "ST_EMYR64OX"});
             table1.AddRow(new string[] {
                         "Frankfurt",
-                        "Paris"});
+                        "ST_LYKXO1K1",
+                        "Paris",
+                        "ST_DQM28J3P"});
 #line 8
  testRunner.Given("There are a hot traveling result", ((string)(null)), table1, "Given ");
 #line 12

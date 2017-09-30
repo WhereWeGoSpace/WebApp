@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using System.Web.Http.Description;
 using Utility.Logging;
 using WhereWeGo.DTOs;
@@ -8,6 +9,7 @@ using WhereWeGo.Models.Interfaces;
 
 namespace WhereWeGo.Controllers
 {
+    [EnableCors("*", "*", "*")]
     [RoutePrefix("Ticket")]
     public class TicketController : ApiController
     {

@@ -6,7 +6,11 @@ namespace WhereWeGo.DTOs
     {
         public string From { get; set; }
 
+        public string From_Code { get; set; }
+
         public string To { get; set; }
+
+        public string To_Code { get; set; }
 
         public DateTimeOffset Date { get; set; }
 
@@ -18,7 +22,9 @@ namespace WhereWeGo.DTOs
             if (target == null) return false;
 
             return this.From.Equals(target.From) &&
+                this.From_Code.Equals(target.From_Code) &&
                 this.To.Equals(target.To) &&
+                this.To_Code.Equals(target.To_Code) &&
                 this.Date.Equals(target.Date) &&
                 this.Price.Equals(target.Price);
         }
@@ -26,7 +32,9 @@ namespace WhereWeGo.DTOs
         public override int GetHashCode()
         {
             return this.From.GetHashCode() |
+                this.From_Code.GetHashCode() |
                 this.To.GetHashCode() |
+                this.To_Code.GetHashCode() |
                 this.Date.GetHashCode() |
                 this.Price.GetHashCode();
         }
