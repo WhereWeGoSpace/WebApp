@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using WhereWeGo.DTOs;
+using WhereWeGoAPI.DTOs;
 
-namespace WhereWeGo.Models.Interfaces
+namespace WhereWeGoAPI.Models.Interfaces
 {
     public interface IJourneyService
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 
-namespace WhereWeGo.DTOs.GrailTravel.SDK.Requests
+namespace WhereWeGoAPI.DTOs.GrailTravel.SDK.Requests
 {
     public abstract class RequestBase
     {

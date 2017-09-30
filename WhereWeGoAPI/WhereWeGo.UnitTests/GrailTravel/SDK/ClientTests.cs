@@ -5,13 +5,13 @@ using FluentAssertions;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using RestSharp;
-using WhereWeGo.DTOs.GrailTravel.SDK.Requests;
-using WhereWeGo.DTOs.GrailTravel.SDK.Response.Booking;
-using WhereWeGo.DTOs.GrailTravel.SDK.Response.Search;
-using WhereWeGo.Models.GrailTravel.SDK;
-using Passenger = WhereWeGo.DTOs.GrailTravel.SDK.Requests.Passenger;
+using WhereWeGoAPI.DTOs.GrailTravel.SDK.Requests;
+using WhereWeGoAPI.DTOs.GrailTravel.SDK.Response.Booking;
+using WhereWeGoAPI.DTOs.GrailTravel.SDK.Response.Search;
+using WhereWeGoAPI.Models.GrailTravel.SDK;
+using Passenger = WhereWeGoAPI.DTOs.GrailTravel.SDK.Requests.Passenger;
 
-namespace WhereWeGo.UnitTests.GrailTravel.SDK
+namespace WhereWeGoAPI.UnitTests.GrailTravel.SDK
 {
     internal class ClientTests
     {

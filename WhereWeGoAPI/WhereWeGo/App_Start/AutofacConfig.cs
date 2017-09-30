@@ -3,9 +3,9 @@ using System.Web.Http;
 using Autofac;
 using Autofac.Integration.WebApi;
 using Utility.Logging.NLog.Autofac;
-using WhereWeGo.IoC;
+using WhereWeGoAPI.IoC;
 
-namespace WhereWeGo.App_Start
+namespace WhereWeGoAPI.App_Start
 {
     public class AutofacWebapiConfig
     {

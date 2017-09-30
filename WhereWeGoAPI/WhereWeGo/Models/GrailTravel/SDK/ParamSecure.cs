@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using WhereWeGo.DTOs.GrailTravel.SDK.Requests;
+using WhereWeGoAPI.DTOs.GrailTravel.SDK.Requests;
 
-namespace WhereWeGo.Models.GrailTravel.SDK
+namespace WhereWeGoAPI.Models.GrailTravel.SDK
 {
     public class ParamSecure
     {

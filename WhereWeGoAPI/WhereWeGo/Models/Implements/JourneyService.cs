@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using WhereWeGo.DTOs;
-using WhereWeGo.Models.Interfaces;
+using WhereWeGoAPI.DTOs;
+using WhereWeGoAPI.Models.Interfaces;
 
-namespace WhereWeGo.Models.Implements
+namespace WhereWeGoAPI.Models.Implements
 {
     public class JourneyService : IJourneyService
     {
@@ -42,12 +42,6 @@ namespace WhereWeGo.Models.Implements
                 },
 
                 //荷兰、比利时、卢森堡出发
-                new Traveling {
-                    From="Amsterdam Centraal", From_Code="ST_DQM28J3P",
-                    To="Hamburg Hbf",To_Code="ST_EMYR64R3",
-                    Date = DateTime.Now.Add(TimeSpan.FromDays(random.Next()%7)),
-                    Price=388
-                },
                 new Traveling {
                     From="Amsterdam Centraal", From_Code="ST_DQM28J3P",
                     To="Frankfurt(Main)Hbf",To_Code="ST_LYKXO1K1",

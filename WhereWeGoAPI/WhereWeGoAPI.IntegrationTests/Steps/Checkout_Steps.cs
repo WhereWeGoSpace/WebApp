@@ -5,9 +5,9 @@ using System.Web.Http.Results;
 using FluentAssertions;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
-using WhereWeGo.Controllers;
-using WhereWeGo.DTOs;
-using WhereWeGo.DTOs.GrailTravel.SDK.Requests;
+using WhereWeGoAPI.Controllers;
+using WhereWeGoAPI.DTOs;
+using WhereWeGoAPI.DTOs.GrailTravel.SDK.Requests;
 using WhereWeGoAPI.IntegrationTests.Factories;
 
 namespace WhereWeGoAPI.IntegrationTests.Steps

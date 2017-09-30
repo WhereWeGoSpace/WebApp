@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using WhereWeGo.DTOs;
-using WhereWeGo.DTOs.GrailTravel.SDK.Requests;
-using WhereWeGo.DTOs.GrailTravel.SDK.Response.Search;
-using WhereWeGo.Models.GrailTravel.SDK;
-using WhereWeGo.Models.Interfaces;
+using WhereWeGoAPI.DTOs;
+using WhereWeGoAPI.DTOs.GrailTravel.SDK.Requests;
+using WhereWeGoAPI.DTOs.GrailTravel.SDK.Response.Booking;
+using WhereWeGoAPI.DTOs.GrailTravel.SDK.Response.Search;
+using WhereWeGoAPI.Models.GrailTravel.SDK;
+using WhereWeGoAPI.Models.Interfaces;
 
-namespace WhereWeGo.Models.Implements
+namespace WhereWeGoAPI.Models.Implements
 {
     public class CheckOutService : ICheckOutService
     {
@@ -18,8 +19,10 @@ namespace WhereWeGo.Models.Implements
             this._client = new DetieClient();
         }
 
-        public BookingRequest BookTraveling(Booking bookingInfo)
+        public BookingResponse BookTraveling(Booking bookingInfo)
         {
+            BookingResponse resp = null;
+
             var searchResult = GetSearchResult(bookingInfo.From_Code, bookingInfo.To_Code);
             var searchRoute = JsonConvert.DeserializeObject<List<SearchResponse>>(searchResult);
 
@@ -31,16 +34,22 @@ namespace WhereWeGo.Models.Implements
                 sections = new List<String>
                 {
                     searchRoute[0].solutions[0].sections[0].offers[0].services[0].booking_code
-                    //"P_NPB7SR"
                 }
             };
 
-            return bookingRequest;
+            AsyncKey asycKey = _client.Booking(bookingRequest);
+
+            resp = _client.Booking_Async(asycKey);
+
+            return resp;
         }
 
-        public bool Pay(decimal amount)
+        public string Pay(string bookingId, ConfirmRequest payInfo)
         {
-            return true;
+            AsyncKey asyncKey = _client.Confirm(bookingId, payInfo);
+            string confirmResult = _client.Confirm_Async(asyncKey);
+
+            return confirmResult;
         }
 
         private String GetSearchResult(string from_code, string to_code)

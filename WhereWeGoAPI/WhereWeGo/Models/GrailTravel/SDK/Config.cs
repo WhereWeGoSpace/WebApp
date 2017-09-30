@@ -1,4 +1,4 @@
-﻿namespace WhereWeGo.Models.GrailTravel.SDK
+﻿namespace WhereWeGoAPI.Models.GrailTravel.SDK
 {
     public static class Config
     {

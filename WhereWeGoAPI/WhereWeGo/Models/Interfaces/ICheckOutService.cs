@@ -1,11 +1,12 @@
-﻿using WhereWeGo.DTOs;
-using WhereWeGo.DTOs.GrailTravel.SDK.Requests;
+﻿using WhereWeGoAPI.DTOs;
+using WhereWeGoAPI.DTOs.GrailTravel.SDK.Requests;
+using WhereWeGoAPI.DTOs.GrailTravel.SDK.Response.Booking;
 
-namespace WhereWeGo.Models.Interfaces
+namespace WhereWeGoAPI.Models.Interfaces
 {
     public interface ICheckOutService
     {
-        bool Pay(decimal amount);
-        BookingRequest BookTraveling(Booking bookingInfo);
+        string Pay(string bookingId, ConfirmRequest payInfo);
+        BookingResponse BookTraveling(Booking bookingInfo);
     }
 }

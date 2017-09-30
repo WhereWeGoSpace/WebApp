@@ -1,8 +1,8 @@
 ﻿using Autofac;
-using WhereWeGo.Models.Implements;
-using WhereWeGo.Models.Interfaces;
+using WhereWeGoAPI.Models.Implements;
+using WhereWeGoAPI.Models.Interfaces;
 
-namespace WhereWeGo.IoC
+namespace WhereWeGoAPI.IoC
 {
     public class AutofacRegister
     {

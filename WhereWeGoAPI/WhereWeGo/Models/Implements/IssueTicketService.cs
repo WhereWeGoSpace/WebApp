@@ -1,7 +1,7 @@
 ﻿using System;
-using WhereWeGo.Models.Interfaces;
+using WhereWeGoAPI.Models.Interfaces;
 
-namespace WhereWeGo.Models.Implements
+namespace WhereWeGoAPI.Models.Implements
 {
     public class IssueTicketService : IIssueTicketService
     {

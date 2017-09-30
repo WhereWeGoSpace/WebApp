@@ -4,7 +4,7 @@ using System.Web.Http.Results;
 using FluentAssertions;
 using NSubstitute;
 using TechTalk.SpecFlow;
-using WhereWeGo.Controllers;
+using WhereWeGoAPI.Controllers;
 using WhereWeGoAPI.IntegrationTests.Factories;
 
 namespace WhereWeGoAPI.IntegrationTests.Steps

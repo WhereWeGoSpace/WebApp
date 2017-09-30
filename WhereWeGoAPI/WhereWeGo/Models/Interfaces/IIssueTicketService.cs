@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WhereWeGo.Models.Interfaces
+namespace WhereWeGoAPI.Models.Interfaces
 {
     public interface IIssueTicketService
     {

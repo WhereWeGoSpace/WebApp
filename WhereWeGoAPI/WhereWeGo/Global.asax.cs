@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Routing;
 using Utility.Logging.NLog.Autofac;
-using WhereWeGo.App_Start;
+using WhereWeGoAPI.App_Start;
 
 namespace WhereWeGoAPI
 {

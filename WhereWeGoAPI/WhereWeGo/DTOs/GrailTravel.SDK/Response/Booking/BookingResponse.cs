@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace WhereWeGo.DTOs.GrailTravel.SDK.Response.Booking
+namespace WhereWeGoAPI.DTOs.GrailTravel.SDK.Response.Booking
 {
     public class Railway
     {

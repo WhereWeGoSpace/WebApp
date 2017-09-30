@@ -1,7 +1,7 @@
 ﻿using NSubstitute;
 using Utility.Logging;
-using WhereWeGo.Controllers;
-using WhereWeGo.Models.Implements;
+using WhereWeGoAPI.Controllers;
+using WhereWeGoAPI.Models.Implements;
 
 namespace WhereWeGoAPI.IntegrationTests.Factories
 {

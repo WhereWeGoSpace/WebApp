@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace WhereWeGo.DTOs.GrailTravel.SDK.Requests
+namespace WhereWeGoAPI.DTOs.GrailTravel.SDK.Requests
 {
     /// <summary>
     /// 搜尋車票所需要輸入的參數

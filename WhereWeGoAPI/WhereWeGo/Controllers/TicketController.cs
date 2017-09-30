@@ -4,11 +4,12 @@ using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Http.Description;
 using Utility.Logging;
-using WhereWeGo.DTOs;
-using WhereWeGo.DTOs.GrailTravel.SDK.Requests;
-using WhereWeGo.Models.Interfaces;
+using WhereWeGoAPI.DTOs;
+using WhereWeGoAPI.DTOs.GrailTravel.SDK.Requests;
+using WhereWeGoAPI.DTOs.GrailTravel.SDK.Response.Booking;
+using WhereWeGoAPI.Models.Interfaces;
 
-namespace WhereWeGo.Controllers
+namespace WhereWeGoAPI.Controllers
 {
     [EnableCors("*", "*", "*")]
     [RoutePrefix("Ticket")]
@@ -67,12 +68,11 @@ namespace WhereWeGo.Controllers
         [Route("Booking")]
         public async Task<IHttpActionResult> Booking([FromBody]Booking bookInfo)
         {
-            bool result = default(bool);
+            BookingResponse result = null;
 
             try
             {
-                BookingRequest bookingResult = this._checkOutSvc.BookTraveling(bookInfo);
-                result = this._checkOutSvc.Pay(100);
+                result = this._checkOutSvc.BookTraveling(bookInfo);
             }
             catch (Exception ex)
             {

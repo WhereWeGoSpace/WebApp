@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace WhereWeGo.DTOs.GrailTravel.SDK.Requests
+namespace WhereWeGoAPI.DTOs.GrailTravel.SDK.Requests
 {
     public class ConfirmRequest : RequestBase
     {

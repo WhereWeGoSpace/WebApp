@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using WhereWeGo.DTOs.GrailTravel.SDK.Requests;
+using WhereWeGoAPI.DTOs.GrailTravel.SDK.Requests;
 
-namespace WhereWeGo.DTOs
+namespace WhereWeGoAPI.DTOs
 {
     public class Booking
     {

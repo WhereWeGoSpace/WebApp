@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WhereWeGo.DTOs
+namespace WhereWeGoAPI.DTOs
 {
     public class Traveling
     {

@@ -1,11 +1,11 @@
 using System.Web.Http;
 using Swashbuckle.Application;
 using WebActivatorEx;
-using WhereWeGo;
+using WhereWeGoAPI;
 
 [assembly: PreApplicationStartMethod(typeof(SwaggerConfig), "Register")]
 
-namespace WhereWeGo
+namespace WhereWeGoAPI
 {
     public class SwaggerConfig
     {
