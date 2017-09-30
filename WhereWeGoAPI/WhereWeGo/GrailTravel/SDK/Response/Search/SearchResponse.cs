@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace WhereWeGo.GrailTravel.SDK.Response
+namespace WhereWeGo.GrailTravel.SDK.Response.Search
 {
     /// <summary>
     /// 搜尋車票所回應的資料結構

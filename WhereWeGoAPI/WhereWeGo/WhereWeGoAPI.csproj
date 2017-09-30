@@ -114,13 +114,15 @@
     <Compile Include="GrailTravel\SDK\DetieClient.cs" />
     <Compile Include="GrailTravel\SDK\Config.cs" />
     <Compile Include="GrailTravel\SDK\ParamSecure.cs" />
+    <Compile Include="GrailTravel\SDK\Requests\BookingRequest.cs" />
     <Compile Include="GrailTravel\SDK\Requests\RequestBase.cs" />
     <Compile Include="GrailTravel\SDK\Requests\SearchRequest.cs" />
     <Compile Include="GrailTravel\SDK\Requests\SearchRequestAsync.cs" />
+    <Compile Include="GrailTravel\SDK\Response\Booking\BookingResponse.cs" />
     <Compile Include="GrailTravel\SDK\Utilities.cs" />
     <Compile Include="IoC\AutofacRegister.cs" />
     <Compile Include="Models\ITestService.cs" />
-    <Compile Include="GrailTravel\SDK\Response\SearchResponse.cs" />
+    <Compile Include="GrailTravel\SDK\Response\Search\SearchResponse.cs" />
     <Compile Include="Models\TestService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

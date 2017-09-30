@@ -7,6 +7,8 @@ using System.Web;
 using RestSharp;
 using WhereWeGo.GrailTravel.SDK.Requests;
 using WhereWeGo.GrailTravel.SDK.Response;
+using WhereWeGo.GrailTravel.SDK.Response.Booking;
+using WhereWeGo.GrailTravel.SDK.Response.Search;
 
 namespace WhereWeGo.GrailTravel.SDK
 {
@@ -69,6 +71,51 @@ namespace WhereWeGo.GrailTravel.SDK
         }
 
 
+        public SearchAsync Booking(BookingRequest bookingRequest)
+        {
+            var dateTime = DateTime.Now.ToUniversalTime();
+            var secure = new ParamSecure(Config.Secret, Config.ApiKey, dateTime, bookingRequest);
+            var signature = secure.Sign();
+
+            Request = new RestRequest($"api/v2/online_orders", Method.POST) {RequestFormat = DataFormat.Json};
+            Request.AddBody(bookingRequest);
+            Request.AddHeader("Content-Type", "application/json");
+            Request.AddHeader("From", Config.ApiKey);
+            Request.AddHeader("Date", dateTime.ToString("r"));
+            Request.AddHeader("Authorization", signature);
+            Request.AddHeader("Api-Locale", "zh-CN");
+
+            var response = _client.Execute<SearchAsync>(Request);
+            Response = response;
+            return response.Data;
+        }
+
+        public BookingResponse Booking_Async(SearchAsync bookingAsyncKey)
+        {
+            var dateTime = DateTime.Now.ToUniversalTime();
+            var request = new SearchRequestAsync() { AsyncKey = bookingAsyncKey.Async };
+            var secure = new ParamSecure(Config.Secret, Config.ApiKey, dateTime, request);
+            var signature = secure.Sign();
+
+            Request = new RestRequest($"api/v2/async_results/{bookingAsyncKey.Async}", Method.GET);
+            Request.AddHeader("From", Config.ApiKey);
+            Request.AddHeader("Date", dateTime.ToString("r"));
+            Request.AddHeader("Authorization", signature);
+            Request.AddHeader("Api-Locale", "zh-CN");
+
+            var response = _client.Execute<BookingResponse>(Request);
+            var count = 0;
+
+            //資料若未Ready, 就Sleep再重試
+            while (response.Content.Equals("{\"description\":\"Async result not ready.\"}") && count < 10)
+            {
+                Thread.Sleep(5000);
+                response = _client.Execute<BookingResponse>(Request);
+                count++;
+            }
+            Response = response;
+            return response.Data;
+        }
     }
 
 
