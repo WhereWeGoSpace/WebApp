@@ -88,7 +88,7 @@ namespace WhereWeGoAPI.Controllers
         [HttpPost]
         [ResponseType(typeof(ConfirmResponse))]
         [Route("Payment")]
-        public async Task<IHttpActionResult> Payment(Payment payment)
+        public async Task<IHttpActionResult> Payment([FromBody]Payment payment)
         {
             ConfirmResponse resp = null;
 
