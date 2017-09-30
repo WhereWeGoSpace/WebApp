@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using WhereWeGo.DTOs.GrailTravel.SDK.Response.Confirm;
+using WhereWeGo.Models.GrailTravel.SDK;
 using WhereWeGoAPI.DTOs;
 using WhereWeGoAPI.DTOs.GrailTravel.SDK.Requests;
 using WhereWeGoAPI.DTOs.GrailTravel.SDK.Response.Booking;
 using WhereWeGoAPI.DTOs.GrailTravel.SDK.Response.Search;
-using WhereWeGoAPI.Models.GrailTravel.SDK;
 using WhereWeGoAPI.Models.Interfaces;
 
 namespace WhereWeGoAPI.Models.Implements
@@ -44,10 +45,10 @@ namespace WhereWeGoAPI.Models.Implements
             return resp;
         }
 
-        public string Pay(string bookingId, ConfirmRequest payInfo)
+        public ConfirmResponse Pay(string bookingId, ConfirmRequest payInfo)
         {
             AsyncKey asyncKey = _client.Confirm(bookingId, payInfo);
-            string confirmResult = _client.Confirm_Async(asyncKey);
+            ConfirmResponse confirmResult = _client.Confirm_Async(asyncKey);
 
             return confirmResult;
         }
