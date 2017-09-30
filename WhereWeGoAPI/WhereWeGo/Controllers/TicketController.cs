@@ -8,18 +8,24 @@ using WhereWeGo.Models.Interfaces;
 
 namespace WhereWeGo.Controllers
 {
+    [RoutePrefix("Ticket")]
     public class TicketController : ApiController
     {
-        public readonly ILogger _logger;
+        #region members
+        private readonly ILogger _logger;
         private readonly IJourneyService _journeyService;
         private readonly IIssueTicketService _issueTicketSvc;
         private readonly ICheckOutService _checkOutSvc;
+        #endregion
 
+        #region Property
         public ILogger Logger => this._logger;
         public IJourneyService JourneyService => this._journeyService;
         public IIssueTicketService IssueTicketService => this._issueTicketSvc;
         public ICheckOutService CheckOutService => this._checkOutSvc;
+        #endregion
 
+        #region Constructor
         public TicketController(
             ILogger logger,
             IJourneyService journeySvc,
@@ -31,8 +37,10 @@ namespace WhereWeGo.Controllers
             this._issueTicketSvc = issueTicketSvc;
             this._checkOutSvc = checkOutSvc;
         }
+        #endregion
 
         [HttpGet]
+        [Route("LoadingJourneys")]
         [ResponseType(typeof(Traveling))]
         public async Task<IHttpActionResult> LoadingJourneys()
         {
@@ -52,6 +60,7 @@ namespace WhereWeGo.Controllers
         }
 
         [HttpPost]
+        [Route("IssueTicket")]
         [ResponseType(typeof(byte[]))]
         public async Task<IHttpActionResult> IssueTicket(DateTime? pt = null, DateTime? dt = null)
         {
@@ -73,6 +82,7 @@ namespace WhereWeGo.Controllers
         }
 
         [HttpPost]
+        [Route("Checkout")]
         public async Task<IHttpActionResult> Checkout([FromBody]TicketIssuing ticket)
         {
             bool result = default(bool);

@@ -16,8 +16,8 @@ namespace WhereWeGo.IoC
                 .As<IIssueTicketService>()
                 .InstancePerRequest();
 
-            builder.RegisterType<ICheckOutService>()
-                .As<IIssueTicketService>()
+            builder.RegisterType<CheckOutService>()
+                .As<ICheckOutService>()
                 .InstancePerRequest();
         }
     }
