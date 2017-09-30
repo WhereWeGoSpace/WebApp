@@ -7,6 +7,7 @@ using NUnit.Framework;
 using RestSharp;
 using WhereWeGo.DTOs.GrailTravel.SDK.Requests;
 using WhereWeGo.DTOs.GrailTravel.SDK.Response.Booking;
+using WhereWeGo.DTOs.GrailTravel.SDK.Response.Confirm;
 using WhereWeGo.DTOs.GrailTravel.SDK.Response.Search;
 using WhereWeGo.Models.GrailTravel.SDK;
 using Passenger = WhereWeGo.DTOs.GrailTravel.SDK.Requests.Passenger;
@@ -22,6 +23,7 @@ namespace WhereWeGo.UnitTests.GrailTravel.SDK
         private AsyncKey _bookingAsyncKeyKey;
         private BookingResponse bookingResult;
         private AsyncKey _confirmAsyncKey;
+        private ConfirmResponse _confirmResult;
 
         [SetUp]
         public void Setup()
@@ -85,7 +87,7 @@ namespace WhereWeGo.UnitTests.GrailTravel.SDK
             var searchReqeust = new SearchRequest
             {
                 StartStationCode = "ST_EZVVG1X5",
-                DestinationStationCode = "ST_D8NNN9ZK",
+                DestinationStationCode = "ST_EZVVZMZG",
                 StartTime = DateTime.Now.AddDays(20),
                 NumberOfAdult = 1,
                 NumberOfChildren = 0
@@ -94,7 +96,7 @@ namespace WhereWeGo.UnitTests.GrailTravel.SDK
             _asyncKeyKey = _client.Search(searchReqeust);
 
             _client.Response.StatusCode.Should().Be(HttpStatusCode.OK);
-            Console.Write(_asyncKeyKey);
+            Console.WriteLine(_asyncKeyKey);
         }
 
         [Test]
@@ -106,9 +108,9 @@ namespace WhereWeGo.UnitTests.GrailTravel.SDK
             //Assert
             _client.Response.StatusCode.Should().Be(HttpStatusCode.OK);
 
-            Console.Write(_SearchTextResult);
-            Console.Write(_client.Response.Content);
-
+            Console.WriteLine(_SearchTextResult);
+            Console.WriteLine(_client.Response.Content);
+            Console.WriteLine(_client.Response.StatusCode);
             _searchResult = JsonConvert.DeserializeObject<List<SearchResponse>>(_SearchTextResult);
             _searchResult.Count.Should().BeGreaterThan(0);
             _searchResult[0].solutions.Count.Should().BeGreaterThan(0);
@@ -149,11 +151,11 @@ namespace WhereWeGo.UnitTests.GrailTravel.SDK
             };
             _bookingAsyncKeyKey = _client.Booking(bookingRequest);
 
-            Console.Write(_client.Response.Content);
+            Console.WriteLine(_client.Response.Content);
             
             //Assert
             _client.Response.StatusCode.Should().Be(HttpStatusCode.Created);
-            Console.Write(_bookingAsyncKeyKey);
+            Console.WriteLine(_bookingAsyncKeyKey);
         }
 
         [Test]
@@ -161,8 +163,8 @@ namespace WhereWeGo.UnitTests.GrailTravel.SDK
         public void T5_Booking_取得Booking結果()
         {
             bookingResult = _client.Booking_Async(_bookingAsyncKeyKey);
-            Console.Write(_client.Response.Content);
-            Console.Write(bookingResult);
+            Console.WriteLine(_client.Response.Content);
+            Console.WriteLine(bookingResult);
             _client.Response.StatusCode.Should().Be(HttpStatusCode.OK);
         }
 
@@ -193,9 +195,21 @@ namespace WhereWeGo.UnitTests.GrailTravel.SDK
         [Order(5)]
         public void T7_Confirm_取得Confirm結果_API()
         {
-            var confirmResult = _client.Confirm_Async(_confirmAsyncKey);
+            _confirmResult = _client.Confirm_Async(_confirmAsyncKey);
 
-            Console.WriteLine(confirmResult);
+            Console.WriteLine(_client.Response.Content);
+
+            _client.Response.StatusCode.Should().Be(HttpStatusCode.OK);
+        }
+
+        [Test]
+        [Order(6)]
+        public void T8_Download_取得車票下載連結()
+        {
+            var downloadResult = _client.Download(bookingResult.id);
+
+            Console.WriteLine(downloadResult);
+            Console.WriteLine(_client.Response.Content);
 
             _client.Response.StatusCode.Should().Be(HttpStatusCode.OK);
         }

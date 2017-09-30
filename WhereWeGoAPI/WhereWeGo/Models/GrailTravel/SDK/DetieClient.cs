@@ -5,6 +5,7 @@ using System.Threading;
 using RestSharp;
 using WhereWeGo.DTOs.GrailTravel.SDK.Requests;
 using WhereWeGo.DTOs.GrailTravel.SDK.Response.Booking;
+using WhereWeGo.DTOs.GrailTravel.SDK.Response.Confirm;
 using WhereWeGo.DTOs.GrailTravel.SDK.Response.Search;
 
 namespace WhereWeGo.Models.GrailTravel.SDK
@@ -12,7 +13,8 @@ namespace WhereWeGo.Models.GrailTravel.SDK
     public class DetieClient
     {
         private readonly IRestClient _client;
-
+        private readonly int sleepSecond = 5;
+        private readonly int retryMaxCount = 20;
         public DetieClient()
         {
             _client = new RestClient(Config.GrailTravelHost);
@@ -57,9 +59,9 @@ namespace WhereWeGo.Models.GrailTravel.SDK
             var count = 0;
 
             //資料若未Ready, 就Sleep再重試
-            while (response.Content.Equals("{\"description\":\"Async result not ready.\"}") && count < 10)
+            while (response.Content.Equals("{\"description\":\"Async result not ready.\"}") && count < retryMaxCount)
             {
-                Thread.Sleep(3000);
+                Thread.Sleep(sleepSecond * 1000);
                 response = _client.Execute<List<SearchResponse>>(Request);
                 count++;
             }
@@ -103,9 +105,9 @@ namespace WhereWeGo.Models.GrailTravel.SDK
             var count = 0;
 
             //資料若未Ready, 就Sleep再重試
-            while (response.Content.Equals("{\"description\":\"Async result not ready.\"}") && count < 10)
+            while (response.Content.Equals("{\"description\":\"Async result not ready.\"}") && count < retryMaxCount)
             {
-                Thread.Sleep(5000);
+                Thread.Sleep(sleepSecond * 1000);
                 response = _client.Execute<BookingResponse>(Request);
                 count++;
             }
@@ -134,7 +136,7 @@ namespace WhereWeGo.Models.GrailTravel.SDK
             return response.Data;
         }
 
-        public string Confirm_Async(AsyncKey confirmAsyncKeyKey)
+        public ConfirmResponse Confirm_Async(AsyncKey confirmAsyncKeyKey)
         {
             var dateTime = DateTime.Now.ToUniversalTime();
             var request = new SearchRequestAsync {AsyncKey = confirmAsyncKeyKey.Async};
@@ -147,21 +149,39 @@ namespace WhereWeGo.Models.GrailTravel.SDK
             Request.AddHeader("Authorization", signature);
             Request.AddHeader("Api-Locale", "zh-CN");
 
-            var response = _client.Execute<BookingResponse>(Request);
+            var response = _client.Execute<ConfirmResponse>(Request);
             var count = 0;
 
             //資料若未Ready, 就Sleep再重試
-            while (response.Content.Equals("{\"description\":\"Async result not ready.\"}") && count < 10)
+            while (response.Content.Equals("{\"description\":\"Async result not ready.\"}") && count < retryMaxCount)
             {
-                Thread.Sleep(5000);
-                response = _client.Execute<BookingResponse>(Request);
+                Thread.Sleep(sleepSecond * 1000);
+                response = _client.Execute<ConfirmResponse>(Request);
                 count++;
             }
             Response = response;
-            return response.Content;
+            return response.Data;
         }
 
-        
+        public string Download(string onLineOrderId)
+        {
+            var dateTime = DateTime.Now.ToUniversalTime();
+            var secure = new ParamSecure(Config.Secret, Config.ApiKey, dateTime, new DownloadRequestForSecure{ online_order_id = onLineOrderId});
+
+            var signature = secure.Sign();
+
+            Request = new RestRequest($"/v2/online_orders/{onLineOrderId}/online_tickets", Method.GET) { RequestFormat = DataFormat.Json };
+
+            Request.AddHeader("Content-Type", "application/json");
+            Request.AddHeader("From", Config.ApiKey);
+            Request.AddHeader("Date", dateTime.ToString("r"));
+            Request.AddHeader("Authorization", signature);
+            Request.AddHeader("Api-Locale", "zh-CN");
+
+            var response = _client.Execute(Request);
+            Response = response;
+            return response.Content;
+        }
     }
 
 
