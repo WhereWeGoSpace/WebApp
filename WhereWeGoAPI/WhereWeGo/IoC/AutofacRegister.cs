@@ -1,5 +1,6 @@
 ﻿using Autofac;
-using WhereWeGo.Models;
+using WhereWeGo.Models.Implements;
+using WhereWeGo.Models.Interfaces;
 
 namespace WhereWeGo.IoC
 {
@@ -7,9 +8,17 @@ namespace WhereWeGo.IoC
     {
         public static void Register(ContainerBuilder builder)
         {
-            builder.RegisterType<TestService>()
-                   .As<ITestService>()
-                   .InstancePerRequest();
+            builder.RegisterType<JourneyService>()
+                .As<IJourneyService>()
+                .InstancePerRequest();
+
+            builder.RegisterType<IssueTicketService>()
+                .As<IIssueTicketService>()
+                .InstancePerRequest();
+
+            builder.RegisterType<ICheckOutService>()
+                .As<IIssueTicketService>()
+                .InstancePerRequest();
         }
     }
 }

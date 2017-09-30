@@ -21,7 +21,7 @@ namespace WhereWeGo.App_Start
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
         }
 
-        private static IContainer RegisterServices(ContainerBuilder builder)
+        public static IContainer RegisterServices(ContainerBuilder builder)
         {
             //Register your Web API controllers.  
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
