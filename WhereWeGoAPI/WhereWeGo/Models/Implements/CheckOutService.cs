@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using WhereWeGo.DTOs.GrailTravel.SDK.Response.Confirm;
-using WhereWeGo.Models.GrailTravel.SDK;
 using WhereWeGoAPI.DTOs;
 using WhereWeGoAPI.DTOs.GrailTravel.SDK.Requests;
 using WhereWeGoAPI.DTOs.GrailTravel.SDK.Response.Booking;
 using WhereWeGoAPI.DTOs.GrailTravel.SDK.Response.Confirm;
 using WhereWeGoAPI.DTOs.GrailTravel.SDK.Response.Search;
+using WhereWeGoAPI.Models.GrailTravel.SDK;
 using WhereWeGoAPI.Models.Interfaces;
 
 namespace WhereWeGoAPI.Models.Implements
@@ -18,7 +17,7 @@ namespace WhereWeGoAPI.Models.Implements
 
         public CheckOutService()
         {
-            this._client = new DetieClient();
+            _client = new DetieClient();
         }
 
         public BookingResponse BookTraveling(Booking bookingInfo)
@@ -39,7 +38,7 @@ namespace WhereWeGoAPI.Models.Implements
                 }
             };
 
-            AsyncKey asycKey = _client.Booking(bookingRequest);
+            var asycKey = _client.Booking(bookingRequest);
 
             resp = _client.Booking_Async(asycKey);
 
@@ -48,8 +47,8 @@ namespace WhereWeGoAPI.Models.Implements
 
         public ConfirmResponse Pay(string bookingId, ConfirmRequest payInfo)
         {
-            AsyncKey asyncKey = _client.Confirm(bookingId, payInfo);
-            ConfirmResponse confirmResult = _client.Confirm_Async(asyncKey);
+            var asyncKey = _client.Confirm(bookingId, payInfo);
+            var confirmResult = _client.Confirm_Async(asyncKey);
 
             return confirmResult;
         }

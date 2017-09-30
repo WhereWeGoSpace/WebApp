@@ -98,13 +98,11 @@ namespace WhereWeGoAPI.Controllers
         [ResponseType(typeof(byte[]))]
         public async Task<IHttpActionResult> IssueTicket(DateTime? pt = null, DateTime? dt = null)
         {
-            byte[] result = null;
+            string result = null;
 
             try
             {
-                this._issueTicketSvc.Download(pt, dt);
-
-                result = this._issueTicketSvc.TicketFile;
+                result = this._issueTicketSvc.Download();
             }
             catch (Exception ex)
             {
