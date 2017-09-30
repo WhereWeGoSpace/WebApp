@@ -6,6 +6,7 @@ using WhereWeGo.Models.GrailTravel.SDK;
 using WhereWeGoAPI.DTOs;
 using WhereWeGoAPI.DTOs.GrailTravel.SDK.Requests;
 using WhereWeGoAPI.DTOs.GrailTravel.SDK.Response.Booking;
+using WhereWeGoAPI.DTOs.GrailTravel.SDK.Response.Confirm;
 using WhereWeGoAPI.DTOs.GrailTravel.SDK.Response.Search;
 using WhereWeGoAPI.Models.Interfaces;
 

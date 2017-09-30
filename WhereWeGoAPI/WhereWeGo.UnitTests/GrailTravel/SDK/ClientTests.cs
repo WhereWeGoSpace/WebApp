@@ -5,14 +5,14 @@ using FluentAssertions;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using RestSharp;
-using WhereWeGo.DTOs.GrailTravel.SDK.Requests;
-using WhereWeGo.DTOs.GrailTravel.SDK.Response.Booking;
-using WhereWeGo.DTOs.GrailTravel.SDK.Response.Confirm;
-using WhereWeGo.DTOs.GrailTravel.SDK.Response.Search;
-using WhereWeGo.Models.GrailTravel.SDK;
-using Passenger = WhereWeGo.DTOs.GrailTravel.SDK.Requests.Passenger;
+using WhereWeGoAPI.DTOs.GrailTravel.SDK.Requests;
+using WhereWeGoAPI.DTOs.GrailTravel.SDK.Response;
+using WhereWeGoAPI.DTOs.GrailTravel.SDK.Response.Booking;
+using WhereWeGoAPI.DTOs.GrailTravel.SDK.Response.Confirm;
+using WhereWeGoAPI.DTOs.GrailTravel.SDK.Response.Search;
+using WhereWeGoAPI.Models.GrailTravel.SDK;
 
-namespace WhereWeGo.UnitTests.GrailTravel.SDK
+namespace WhereWeGoAPI.UnitTests.GrailTravel.SDK
 {
     internal class ClientTests
     {
@@ -86,8 +86,8 @@ namespace WhereWeGo.UnitTests.GrailTravel.SDK
         {
             var searchReqeust = new SearchRequest
             {
-                StartStationCode = "ST_EZVVG1X5",
-                DestinationStationCode = "ST_EZVVZMZG",
+                StartStationCode = "ST_D8NNN9ZK",
+                DestinationStationCode = "ST_EZVVG1X5",
                 StartTime = DateTime.Now.AddDays(20),
                 NumberOfAdult = 1,
                 NumberOfChildren = 0
@@ -139,7 +139,7 @@ namespace WhereWeGo.UnitTests.GrailTravel.SDK
                         birthdate = "1986-09-01",
                         passport = "A123456",
                         email = "x@a.cn",
-                        phone = "15000367081",
+                        phone = "13148371640",
                         gender = "male"
                     }
                 },

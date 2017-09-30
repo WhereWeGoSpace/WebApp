@@ -1,4 +1,4 @@
-﻿namespace WhereWeGo.DTOs.GrailTravel.SDK
+﻿namespace WhereWeGoAPI.DTOs.GrailTravel.SDK.Response
 {
     public class Passenger
     {

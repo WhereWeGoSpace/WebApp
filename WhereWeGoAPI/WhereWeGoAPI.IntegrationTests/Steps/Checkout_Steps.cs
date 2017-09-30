@@ -8,6 +8,7 @@ using TechTalk.SpecFlow.Assist;
 using WhereWeGoAPI.Controllers;
 using WhereWeGoAPI.DTOs;
 using WhereWeGoAPI.DTOs.GrailTravel.SDK.Requests;
+using WhereWeGoAPI.DTOs.GrailTravel.SDK.Response;
 using WhereWeGoAPI.IntegrationTests.Factories;
 
 namespace WhereWeGoAPI.IntegrationTests.Steps
