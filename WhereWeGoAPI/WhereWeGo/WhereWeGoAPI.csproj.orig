@@ -67,9 +67,13 @@
     <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RestSharp.105.2.3\lib\net46\RestSharp.dll</HintPath>
     </Reference>
+<<<<<<< HEAD
     <Reference Include="Swashbuckle.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cd1bb07a5ac7c7bc, processorArchitecture=MSIL">
       <HintPath>..\packages\Swashbuckle.Core.5.6.0\lib\net40\Swashbuckle.Core.dll</HintPath>
     </Reference>
+=======
+    <Reference Include="System" />
+>>>>>>> 2c4a3daf48eea0261e886b0179d4a0f8033ab80b
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -118,11 +122,14 @@
     <Compile Include="App_Start\AutofacConfig.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+<<<<<<< HEAD
     <Compile Include="Controllers\TicketController.cs" />
     <Compile Include="DTOs\TicketIssuing.cs" />
     <Compile Include="DTOs\Traveling.cs" />
     <Compile Include="DTOs\UserInfo.cs" />
     <Compile Include="Exceptions\TimeoutException.cs" />
+=======
+>>>>>>> 2c4a3daf48eea0261e886b0179d4a0f8033ab80b
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -136,12 +143,18 @@
     <Compile Include="GrailTravel\SDK\Response\Booking\BookingResponse.cs" />
     <Compile Include="GrailTravel\SDK\Utilities.cs" />
     <Compile Include="IoC\AutofacRegister.cs" />
+<<<<<<< HEAD
     <Compile Include="Models\Implements\CheckOutService.cs" />
-    <Compile Include="GrailTravel\SDK\Response\Search\SearchResponse.cs" />
+    <Compile Include="Models\Implements\IssueTicketService.cs" />
     <Compile Include="Models\Interfaces\ICheckOutService.cs" />
     <Compile Include="Models\Interfaces\IIssueTicketService.cs" />
     <Compile Include="Models\Interfaces\IJourneyService.cs" />
     <Compile Include="Models\Implements\JourneyService.cs" />
+=======
+    <Compile Include="Models\ITestService.cs" />
+    <Compile Include="GrailTravel\SDK\Response\Search\SearchResponse.cs" />
+    <Compile Include="Models\TestService.cs" />
+>>>>>>> 2c4a3daf48eea0261e886b0179d4a0f8033ab80b
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
