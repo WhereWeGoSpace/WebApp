@@ -16,12 +16,12 @@ namespace WhereWeGo.UnitTests.GrailTravel.SDK
     internal class ClientTests
     {
         private DetieClient _client;
-        private SearchAsync searchAsyncKey;
+        private AsyncKey _asyncKeyKey;
         private String _SearchTextResult;
         private List<SearchResponse> _searchResult;
-        private SearchAsync bookingAsyncKey;
+        private AsyncKey _bookingAsyncKeyKey;
         private BookingResponse bookingResult;
-        private SearchAsync confirmAsync;
+        private AsyncKey _confirmAsyncKey;
 
         [SetUp]
         public void Setup()
@@ -91,17 +91,17 @@ namespace WhereWeGo.UnitTests.GrailTravel.SDK
                 NumberOfChildren = 0
             };
 
-            searchAsyncKey = _client.Search(searchReqeust);
+            _asyncKeyKey = _client.Search(searchReqeust);
 
             _client.Response.StatusCode.Should().Be(HttpStatusCode.OK);
-            Console.Write(searchAsyncKey);
+            Console.Write(_asyncKeyKey);
         }
 
         [Test]
         [Order(1)]
         public void T3_Search_先進行路線查詢_取得AsyncKey後_再查詢結果()
         {
-            _SearchTextResult = _client.Search_Async(searchAsyncKey);
+            _SearchTextResult = _client.Search_Async(_asyncKeyKey);
 
             //Assert
             _client.Response.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -147,20 +147,20 @@ namespace WhereWeGo.UnitTests.GrailTravel.SDK
                     _searchResult[0].solutions[0].sections[0].offers[0].services[0].booking_code
                 }
             };
-            bookingAsyncKey = _client.Booking(bookingRequest);
+            _bookingAsyncKeyKey = _client.Booking(bookingRequest);
 
             Console.Write(_client.Response.Content);
             
             //Assert
             _client.Response.StatusCode.Should().Be(HttpStatusCode.Created);
-            Console.Write(bookingAsyncKey);
+            Console.Write(_bookingAsyncKeyKey);
         }
 
         [Test]
         [Order(3)]
         public void T5_Booking_取得Booking結果()
         {
-            bookingResult = _client.Booking_Async(bookingAsyncKey);
+            bookingResult = _client.Booking_Async(_bookingAsyncKeyKey);
             Console.Write(_client.Response.Content);
             Console.Write(bookingResult);
             _client.Response.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -170,43 +170,6 @@ namespace WhereWeGo.UnitTests.GrailTravel.SDK
         [Order(4)]
         public void T6_Confirm_調用Confirm_API()
         {
-            //var searchResult = GetSearchResult();
-            //var searchRoute = JsonConvert.DeserializeObject<List<SearchResponse>>(searchResult);
-
-            //var bookingRequest = new BookingRequest
-            //{
-            //    contact = new Contact
-            //    {
-            //        address = "beijing",
-            //        email = "lp@163.com",
-            //        name = "Liping",
-            //        phone = "10086",
-            //        postcode = "100100"
-            //    },
-            //    passengers = new List<Passenger>
-            //    {
-            //        new Passenger
-            //        {
-            //            last_name = "zhang",
-            //            first_name = "san",
-            //            birthdate = "1986-09-01",
-            //            passport = "A123456",
-            //            email = "x@a.cn",
-            //            phone = "15000367081",
-            //            gender = "male"
-            //        }
-            //    },
-            //    seat_reserved = true,
-            //    sections = new List<String>
-            //    {
-            //        searchRoute[0].solutions[0].sections[0].offers[0].services[0].booking_code
-            //        //"P_NPB7SR"
-            //    }
-            //};
-            //var bookingAsyncKey = _client.Booking(bookingRequest);
-
-            //var bookingResult = _client.Booking_Async(bookingAsyncKey);
-            //Console.Write(bookingResult);
             var confirmRequest = new ConfirmRequest
             {
                 credit_card = new CreditCard
@@ -220,7 +183,7 @@ namespace WhereWeGo.UnitTests.GrailTravel.SDK
 
             Console.WriteLine($"OnLine_OrderId={bookingResult.id}");
 
-            confirmAsync = _client.Confirm(bookingResult.id, confirmRequest);
+            _confirmAsyncKey = _client.Confirm(bookingResult.id, confirmRequest);
             Console.WriteLine(_client.Response.Content);
             
             _client.Response.StatusCode.Should().Be(HttpStatusCode.Created);
@@ -230,9 +193,7 @@ namespace WhereWeGo.UnitTests.GrailTravel.SDK
         [Order(5)]
         public void T7_Confirm_取得Confirm結果_API()
         {
-            
-
-            var confirmResult = _client.Confirm_Async(confirmAsync);
+            var confirmResult = _client.Confirm_Async(_confirmAsyncKey);
 
             Console.WriteLine(confirmResult);
 

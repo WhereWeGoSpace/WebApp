@@ -23,7 +23,7 @@ namespace WhereWeGo.Models.GrailTravel.SDK
 
         public IRestResponse Response { get; set; }
 
-        public SearchAsync Search(SearchRequest searchReqeust)
+        public AsyncKey Search(SearchRequest searchReqeust)
         {
             var dateTime = DateTime.Now.ToUniversalTime();
             var secure = new ParamSecure(Config.Secret, Config.ApiKey, dateTime, searchReqeust);
@@ -35,19 +35,19 @@ namespace WhereWeGo.Models.GrailTravel.SDK
             Request.AddHeader("Authorization", signature);
             Request.AddHeader("Api-Locale", "zh-CN");
 
-            var response = _client.Execute<SearchAsync>(Request);
+            var response = _client.Execute<AsyncKey>(Request);
             Response = response;
             return response.Data;
         }
 
-        public string Search_Async(SearchAsync async)
+        public string Search_Async(AsyncKey asyncKey)
         {
             var dateTime = DateTime.Now.ToUniversalTime();
-            var request = new SearchRequestAsync {AsyncKey = async.Async};
+            var request = new SearchRequestAsync {AsyncKey = asyncKey.Async};
             var secure = new ParamSecure(Config.Secret, Config.ApiKey, dateTime, request);
             var signature = secure.Sign();
 
-            Request = new RestRequest($"api/v2/async_results/{async.Async}", Method.GET);
+            Request = new RestRequest($"api/v2/async_results/{asyncKey.Async}", Method.GET);
             Request.AddHeader("From", Config.ApiKey);
             Request.AddHeader("Date", dateTime.ToString("r"));
             Request.AddHeader("Authorization", signature);
@@ -67,7 +67,7 @@ namespace WhereWeGo.Models.GrailTravel.SDK
             return response.Content;
         }
 
-        public SearchAsync Booking(BookingRequest bookingRequest)
+        public AsyncKey Booking(BookingRequest bookingRequest)
         {
             var dateTime = DateTime.Now.ToUniversalTime();
             var secure = new ParamSecure(Config.Secret, Config.ApiKey, dateTime, bookingRequest);
@@ -81,19 +81,19 @@ namespace WhereWeGo.Models.GrailTravel.SDK
             Request.AddHeader("Authorization", signature);
             Request.AddHeader("Api-Locale", "zh-CN");
 
-            var response = _client.Execute<SearchAsync>(Request);
+            var response = _client.Execute<AsyncKey>(Request);
             Response = response;
             return response.Data;
         }
 
-        public BookingResponse Booking_Async(SearchAsync bookingAsyncKey)
+        public BookingResponse Booking_Async(AsyncKey bookingAsyncKeyKey)
         {
             var dateTime = DateTime.Now.ToUniversalTime();
-            var request = new SearchRequestAsync {AsyncKey = bookingAsyncKey.Async};
+            var request = new SearchRequestAsync {AsyncKey = bookingAsyncKeyKey.Async};
             var secure = new ParamSecure(Config.Secret, Config.ApiKey, dateTime, request);
             var signature = secure.Sign();
 
-            Request = new RestRequest($"api/v2/async_results/{bookingAsyncKey.Async}", Method.GET);
+            Request = new RestRequest($"api/v2/async_results/{bookingAsyncKeyKey.Async}", Method.GET);
             Request.AddHeader("From", Config.ApiKey);
             Request.AddHeader("Date", dateTime.ToString("r"));
             Request.AddHeader("Authorization", signature);
@@ -113,7 +113,7 @@ namespace WhereWeGo.Models.GrailTravel.SDK
             return response.Data;
         }
 
-        public SearchAsync Confirm(string onLineOrderId, ConfirmRequest confirmRequest)
+        public AsyncKey Confirm(string onLineOrderId, ConfirmRequest confirmRequest)
         {
             var dateTime = DateTime.Now.ToUniversalTime();
             var secure = new ParamSecure(Config.Secret, Config.ApiKey, dateTime, new ConfirmRequestForSecure {credit_card = confirmRequest.credit_card, online_order_id = onLineOrderId});
@@ -129,23 +129,23 @@ namespace WhereWeGo.Models.GrailTravel.SDK
             Request.AddHeader("Authorization", signature);
             Request.AddHeader("Api-Locale", "zh-CN");
 
-            var response = _client.Execute<SearchAsync>(Request);
+            var response = _client.Execute<AsyncKey>(Request);
             Response = response;
             return response.Data;
         }
 
-        public string Confirm_Async(SearchAsync confirmAsyncKey)
+        public string Confirm_Async(AsyncKey confirmAsyncKeyKey)
         {
             var dateTime = DateTime.Now.ToUniversalTime();
-            var request = new SearchRequestAsync {AsyncKey = confirmAsyncKey.Async};
+            var request = new SearchRequestAsync {AsyncKey = confirmAsyncKeyKey.Async};
             var secure = new ParamSecure(Config.Secret, Config.ApiKey, dateTime, request);
             var signature = secure.Sign();
 
-            Request = new RestRequest($"api/v2/async_results/{confirmAsyncKey.Async}", Method.GET);
+            Request = new RestRequest($"api/v2/async_results/{confirmAsyncKeyKey.Async}", Method.GET);
             Request.AddHeader("From", Config.ApiKey);
             Request.AddHeader("Date", dateTime.ToString("r"));
             Request.AddHeader("Authorization", signature);
-            //Request.AddHeader("Api-Locale", "zh-CN");
+            Request.AddHeader("Api-Locale", "zh-CN");
 
             var response = _client.Execute<BookingResponse>(Request);
             var count = 0;
@@ -160,10 +160,12 @@ namespace WhereWeGo.Models.GrailTravel.SDK
             Response = response;
             return response.Content;
         }
+
+        
     }
 
 
-    public class SearchAsync
+    public class AsyncKey
     {
         public string Async { get; set; }
     }
