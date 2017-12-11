@@ -178,7 +178,16 @@ namespace WhereWeGoAPI.Models.GrailTravel.SDK
             Request.AddHeader("Authorization", signature);
             Request.AddHeader("Api-Locale", "zh-CN");
 
+            
             var response = _client.Execute(Request);
+            var count = 0;
+            while (response.StatusCode != HttpStatusCode.OK && count < retryMaxCount)
+            {
+                Thread.Sleep(sleepSecond * 1000);
+                response = _client.Execute(Request);
+                count++;
+            }
+
             Response = response;
             return response.Content;
         }

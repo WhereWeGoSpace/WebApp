@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using FluentAssertions;
 using Newtonsoft.Json;
@@ -11,6 +12,7 @@ using WhereWeGoAPI.DTOs.GrailTravel.SDK.Response.Booking;
 using WhereWeGoAPI.DTOs.GrailTravel.SDK.Response.Confirm;
 using WhereWeGoAPI.DTOs.GrailTravel.SDK.Response.Search;
 using WhereWeGoAPI.Models.GrailTravel.SDK;
+using WhereWeGoAPI.Models.Implements;
 
 namespace WhereWeGoAPI.UnitTests.GrailTravel.SDK
 {
@@ -86,8 +88,8 @@ namespace WhereWeGoAPI.UnitTests.GrailTravel.SDK
         {
             var searchReqeust = new SearchRequest
             {
-                StartStationCode = "ST_D8NNN9ZK",
-                DestinationStationCode = "ST_EZVVG1X5",
+                StartStationCode = "ST_DQM28J3P",
+                DestinationStationCode = "ST_LYKXO1K1",
                 StartTime = DateTime.Now.AddDays(20),
                 NumberOfAdult = 1,
                 NumberOfChildren = 0
@@ -112,6 +114,7 @@ namespace WhereWeGoAPI.UnitTests.GrailTravel.SDK
             Console.WriteLine(_client.Response.Content);
             Console.WriteLine(_client.Response.StatusCode);
             _searchResult = JsonConvert.DeserializeObject<List<SearchResponse>>(_SearchTextResult);
+            _searchResult = _searchResult.Where(it => it.railway.code.Equals("FB")).ToList();
             _searchResult.Count.Should().BeGreaterThan(0);
             _searchResult[0].solutions.Count.Should().BeGreaterThan(0);
         }
@@ -206,12 +209,103 @@ namespace WhereWeGoAPI.UnitTests.GrailTravel.SDK
         [Order(6)]
         public void T8_Download_取得車票下載連結()
         {
-            var downloadResult = _client.Download(bookingResult.id);
+            Console.WriteLine(_confirmResult.order.id);
+            var downloadResult = _client.Download(_confirmResult.order.id);
 
             Console.WriteLine(downloadResult);
             Console.WriteLine(_client.Response.Content);
 
             _client.Response.StatusCode.Should().Be(HttpStatusCode.OK);
+        }
+
+        [Ignore("tes")]
+        [Test]
+        public void 測試那些路線是OK的()
+        {
+            var journeyService = new JourneyService();
+
+            foreach (var traveling in journeyService._favorit)
+            {
+                var searchReqeust = new SearchRequest
+                {
+                    StartStationCode = traveling.From_Code,
+                    DestinationStationCode = traveling.To_Code,
+                    StartTime = traveling.Date.DateTime,
+                    NumberOfAdult = 1,
+                    NumberOfChildren = 0
+                };
+
+                Console.WriteLine("===================================");
+                Console.Write($"開始 進行 from={traveling.From_Code};to={traveling.To_Code};");
+
+                //Act
+                var asyncKey = _client.Search(searchReqeust);
+                Console.WriteLine("Search Result.");
+                Console.WriteLine(_client.Response.StatusCode);
+
+                var searchtextResult = _client.Search_Async(asyncKey);
+
+                Console.WriteLine("Search_Async Result.");
+                Console.WriteLine(_client.Response.StatusCode);
+                if (_client.Response.StatusCode != HttpStatusCode.OK)
+                {
+                    Console.WriteLine(_client.Response.Content);
+                    Console.WriteLine("===================================");
+                    continue;
+                }
+
+                var searchResult = JsonConvert.DeserializeObject<List<SearchResponse>>(searchtextResult);
+
+                if (searchResult.Count <= 0)
+                {
+                    Console.WriteLine("沒有路線");
+                    Console.WriteLine("===================================");
+                    continue;
+                }
+                var bookingRequest = new BookingRequest
+                {
+                    contact = new Contact
+                    {
+                        address = "beijing",
+                        email = "lp@163.com",
+                        name = "Liping",
+                        phone = "10086",
+                        postcode = "100100"
+                    },
+                    passengers = new List<Passenger>
+                    {
+                        new Passenger
+                        {
+                            last_name = "zhang",
+                            first_name = "san",
+                            birthdate = "1986-09-01",
+                            passport = "A123456",
+                            email = "x@a.cn",
+                            phone = "0920000000",
+                            gender = "male"
+                        }
+                    },
+                    seat_reserved = true,
+                    sections = new List<String>
+                    {
+                        searchResult[0].solutions[0].sections[0].offers[0].services[0].booking_code
+                    }
+                };
+                _bookingAsyncKeyKey = _client.Booking(bookingRequest);
+                Console.WriteLine("Booking Result.");
+                Console.WriteLine(_client.Response.StatusCode);
+
+                Console.Write(_client.Response.Content);
+                Console.WriteLine("Booking_Async Result.");
+                Console.WriteLine(_client.Response.StatusCode);
+                if (_client.Response.StatusCode != HttpStatusCode.OK)
+                {
+                    Console.WriteLine(_client.Response.Content);
+                }
+            }
+
+            
+
         }
     }
 }
